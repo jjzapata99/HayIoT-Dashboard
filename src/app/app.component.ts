@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'CoreUI Free Angular Admin Template';
+  title = 'HayIoT';
 
   constructor(
     private router: Router,
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton
-    iconSetService.icons = { ...iconSubset };
+    iconSetService.icons= { ...iconSubset };
   }
 
   ngOnInit(): void {
