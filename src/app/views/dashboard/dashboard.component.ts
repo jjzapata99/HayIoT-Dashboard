@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
+import { IconSetService } from '@coreui/icons-angular';
+import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 
 interface IUser {
@@ -22,7 +23,8 @@ interface IUser {
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData) {
+  constructor(private chartsData: DashboardChartsData, public iconSet: IconSetService) {
+    iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
 
   public users: IUser[] = [

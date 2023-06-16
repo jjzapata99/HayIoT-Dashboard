@@ -1,62 +1,131 @@
 <!-- <app-widgets-dropdown></app-widgets-dropdown> !-->
 <c-card class="mb-4">
   <c-card-body>
-    <c-row>
+<!--    <c-row>-->
+<!--      <c-col sm="5">-->
+<!--        <h4 class="card-title mb-0" id="traffic">Traffic</h4>-->
+<!--        <div class="small text-medium-emphasis">January - December 2021</div>-->
+<!--      </c-col>-->
+<!--      <c-col class="d-none d-md-block" sm="7">-->
+<!--        <button cButton class="float-end" color="primary">-->
+<!--          <svg cIcon name="cilCloudDownload"></svg>-->
+<!--        </button>-->
+<!--        <form [formGroup]="trafficRadioGroup">-->
+<!--          <c-button-group class="float-end me-3" role="group">-->
+<!--            <input-->
+<!--              class="btn-check"-->
+<!--              formControlName="trafficRadio"-->
+<!--              type="radio"-->
+<!--              value="Day"-->
+<!--            />-->
+<!--            <label-->
+<!--              (click)="setTrafficPeriod('Day')"-->
+<!--              cButton-->
+<!--              cFormCheckLabel-->
+<!--              color="secondary"-->
+<!--              variant="outline"-->
+<!--            >Day</label>-->
+
+<!--            <input-->
+<!--              class="btn-check"-->
+<!--              formControlName="trafficRadio"-->
+<!--              type="radio"-->
+<!--              value="Month"-->
+<!--            />-->
+<!--            <label-->
+<!--              (click)="setTrafficPeriod('Month')"-->
+<!--              cButton-->
+<!--              cFormCheckLabel-->
+<!--              color="secondary"-->
+<!--              variant="outline"-->
+<!--            >Month</label>-->
+
+<!--            <input-->
+<!--              class="btn-check"-->
+<!--              formControlName="trafficRadio"-->
+<!--              type="radio"-->
+<!--              value="Year"-->
+<!--            />-->
+<!--            <label-->
+<!--              (click)="setTrafficPeriod('Year')"-->
+<!--              cButton-->
+<!--              cFormCheckLabel-->
+<!--              color="secondary"-->
+<!--              variant="outline"-->
+<!--            >Year</label>-->
+<!--          </c-button-group>-->
+<!--        </form>-->
+<!--      </c-col>-->
+<!--    </c-row>-->
+
+    <c-row class="mb-3">
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Traffic</h4>
-        <div class="small text-medium-emphasis">January - December 2021</div>
-      </c-col>
-      <c-col class="d-none d-md-block" sm="7">
-        <button cButton class="float-end" color="primary">
-          <svg cIcon name="cilCloudDownload"></svg>
-        </button>
-        <form [formGroup]="trafficRadioGroup">
-          <c-button-group class="float-end me-3" role="group">
-            <input
-              class="btn-check"
-              formControlName="trafficRadio"
-              type="radio"
-              value="Day"
-            />
-            <label
-              (click)="setTrafficPeriod('Day')"
-              cButton
-              cFormCheckLabel
-              color="secondary"
-              variant="outline"
-            >Day</label>
-
-            <input
-              class="btn-check"
-              formControlName="trafficRadio"
-              type="radio"
-              value="Month"
-            />
-            <label
-              (click)="setTrafficPeriod('Month')"
-              cButton
-              cFormCheckLabel
-              color="secondary"
-              variant="outline"
-            >Month</label>
-
-            <input
-              class="btn-check"
-              formControlName="trafficRadio"
-              type="radio"
-              value="Year"
-            />
-            <label
-              (click)="setTrafficPeriod('Year')"
-              cButton
-              cFormCheckLabel
-              color="secondary"
-              variant="outline"
-            >Year</label>
-          </c-button-group>
-        </form>
+        <h4 class="card-title mb-0" id="traffic">Exploración de data</h4>
       </c-col>
     </c-row>
+
+    <c-input-group class="mb-3">
+      <span cInputGroupText><svg cIcon name="cilSearch" size="m" title="Numbered List Icon"></svg></span>
+      <input aria-label="Text input with dropdown button" cFormControl/>
+      <select aria-label="Default select example" cSelect sizing="s" style="flex: 0.2">
+        <option value="ID">ID</option>
+        <option value="NAME">Nombre</option>
+      </select>
+      <button type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
+    </c-input-group>
+
+    <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+      <table class="table table-striped">
+        <thead>
+        <tr class="table-dark">
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+        </tbody>
+      </table>
+    </c-row>
+
+    <c-row class="mb-3">
+      <c-col sm="4">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Fecha inicio</span>
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </c-col>
+
+      <c-col sm="4">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Fecha fin</span>
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </c-col>
+
+      <c-col sm="4">
+        <button type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
+      </c-col>
+    </c-row>
+
     <c-chart
       [data]="mainChart.data"
       [height]="300"

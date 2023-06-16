@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { cilList, cilShieldAlt } from '@coreui/icons';
 
 import {
   AvatarModule,
   ButtonGroupModule,
   ButtonModule,
-  CardModule,
+  CardModule, DropdownModule,
   FormModule,
   GridModule,
   NavModule,
@@ -14,7 +15,7 @@ import {
   TableModule,
   TabsModule
 } from '@coreui/angular';
-import { IconModule } from '@coreui/icons-angular';
+import {IconModule, IconSetService} from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -34,15 +35,20 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ProgressModule,
     ReactiveFormsModule,
     ButtonModule,
+    IconModule,
     FormModule,
     ButtonModule,
     ButtonGroupModule,
     ChartjsModule,
     AvatarModule,
     TableModule,
-    WidgetsModule
+    WidgetsModule,
+    DropdownModule
   ],
-  declarations: [DashboardComponent]
+  declarations: [DashboardComponent],
+  providers: [
+    IconSetService]
 })
 export class DashboardModule {
+  icons = { cilList, cilShieldAlt };
 }
