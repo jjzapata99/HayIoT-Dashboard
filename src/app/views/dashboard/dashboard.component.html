@@ -126,6 +126,12 @@
       </c-col>
     </c-row>
 
+    <label cLabel for="basic-url">Referencia API</label>
+    <c-input-group class="mb-3">
+      <span cInputGroupText id="basic-addon3">https://example.com/users/</span>
+      <input aria-describedby="basic-addon3" cFormControl id="basic-url" />
+    </c-input-group>
+
     <c-chart
       [data]="mainChart.data"
       [height]="300"
