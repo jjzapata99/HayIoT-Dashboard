@@ -66,41 +66,34 @@
 
     <c-input-group class="mb-3">
       <span cInputGroupText><svg cIcon name="cilSearch" size="m" title="Numbered List Icon"></svg></span>
-      <input aria-label="Text input with dropdown button" cFormControl/>
-      <select aria-label="Default select example" cSelect sizing="s" style="flex: 0.2">
+      <input #val aria-label="Text input with dropdown button" cFormControl/>
+      <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.2">
         <option value="ID">ID</option>
         <option value="NAME">Nombre</option>
       </select>
-      <button type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
+      <button type="button" (click)="fetchSensors(val.value, option.value)" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
     </c-input-group>
-
     <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
       <table class="table table-striped">
         <thead>
         <tr class="table-dark">
           <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Id</th>
+          <th scope="col">SiteRef</th>
+          <th scope="col">EquipRef</th>
+          <th scope="col">Type</th>
+          <th scope="col">Description</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
+        <tr *ngFor="let d of data; let i = index">
+          <th scope="row">{{i}}</th>
+          <td>{{d.id}}</td>
+          <td>{{d.siteref}}</td>
+          <td>{{d.equipref}}</td>
+          <td>{{d.type}}</td>
+          <td>{{d.description}}</td>
+
         </tr>
         </tbody>
       </table>

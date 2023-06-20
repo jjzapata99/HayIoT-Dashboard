@@ -3,8 +3,9 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { IconSetService } from '@coreui/icons-angular';
 import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
+import {ApiConectionService} from "../../services/api-conection.service";
 
-interface IUser {
+/*interface IUser {
   name: string;
   state: string;
   registered: string;
@@ -16,18 +17,18 @@ interface IUser {
   avatar: string;
   status: string;
   color: string;
-}
+}*/
 
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData, public iconSet: IconSetService) {
+  constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
-
-  public users: IUser[] = [
+  data = [{'id':'asd','siteref':'asd','equipref':'asd','type':'asd','description':'asd'}]
+  /*public users: IUser[] = [
     {
       name: 'Yiorgos Avraamu',
       state: 'New',
@@ -106,7 +107,7 @@ export class DashboardComponent implements OnInit {
       status: 'info',
       color: 'dark'
     }
-  ];
+  ];*/
   public mainChart: IChartProps = {};
   public chart: Array<IChartProps> = [];
   public trafficRadioGroup = new UntypedFormGroup({
@@ -120,7 +121,15 @@ export class DashboardComponent implements OnInit {
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
   }
-
+  fetchSensors(val: any, option: any){
+    let query
+    if (option == 'ID') query = 'getSensors?id='.concat(val)
+    else query = 'getSensors?name='.concat(val)
+    this.api.getQuery(query).subscribe((response: any) => {
+      console.log(response)
+      this.data= response
+    });
+  }
   setTrafficPeriod(value: string): void {
     this.trafficRadioGroup.setValue({ trafficRadio: value });
     this.chartsData.initMainChart(value);
