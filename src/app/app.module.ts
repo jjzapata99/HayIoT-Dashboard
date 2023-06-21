@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {HashLocationStrategy, JsonPipe, LocationStrategy, NgIf, PathLocationStrategy} from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -37,8 +37,11 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import {ApiConectionService} from "./services/api-conection.service";
 import {HttpClientModule} from "@angular/common/http";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -76,7 +79,14 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     HttpClientModule,
-
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    JsonPipe,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule
   ],
   providers: [
     {

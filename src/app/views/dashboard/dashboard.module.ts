@@ -22,6 +22,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { WidgetsModule } from '../widgets/widgets.module';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   imports: [
@@ -46,7 +48,9 @@ import { WidgetsModule } from '../widgets/widgets.module';
     DropdownModule,
     PaginationComponent,
     PageItemDirective,
-    PageLinkDirective
+    PageLinkDirective,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   declarations: [DashboardComponent],
   providers: [

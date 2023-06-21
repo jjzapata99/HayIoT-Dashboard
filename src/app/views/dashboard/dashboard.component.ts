@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { IconSetService } from '@coreui/icons-angular';
 import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import {ApiConectionService} from "../../services/api-conection.service";
+import * as moment from "moment";
 
 /*interface IUser {
   name: string;
@@ -27,7 +28,11 @@ export class DashboardComponent implements OnInit {
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
-  public date = new Date();
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  queryExample = ''
   selected = {'id':'','siteref':'','equipref':'','type':'','description':''}
   data = {'data':[this.selected], 'indexs':[]}
   /*public users: IUser[] = [
@@ -131,6 +136,15 @@ export class DashboardComponent implements OnInit {
       console.log(response)
       this.data= response
     });
+  }
+  fetchData(){
+    let init = moment(this.range.value.start).format("DD/MM/YYYY")
+    let end = moment(this.range.value.end).format("DD/MM/YYYY")
+    let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
+    this.api.getQuery(query).subscribe((response: any) => {
+      console.log(response)
+    });
+    this.queryExample = query
   }
   selectItem(item:any){
     this.selected=item
