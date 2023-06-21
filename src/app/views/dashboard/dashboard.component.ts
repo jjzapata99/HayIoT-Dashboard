@@ -27,7 +27,9 @@ export class DashboardComponent implements OnInit {
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
-  data = [{'id':'asd','siteref':'asd','equipref':'asd','type':'asd','description':'asd'}]
+  public date = new Date();
+  selected = {'id':'','siteref':'','equipref':'','type':'','description':''}
+  data = {'data':[this.selected], 'indexs':[]}
   /*public users: IUser[] = [
     {
       name: 'Yiorgos Avraamu',
@@ -121,14 +123,17 @@ export class DashboardComponent implements OnInit {
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
   }
-  fetchSensors(val: any, option: any){
+  fetchSensors(val: any, option: any, index: any){
     let query
-    if (option == 'ID') query = 'getSensors?id='.concat(val)
-    else query = 'getSensors?name='.concat(val)
+    if (option == 'ID') query = 'getSensors?id='.concat(val+'&max=10&index=0')
+    else query = 'getSensors?name='.concat(val+'&max=10&index='.concat(index))
     this.api.getQuery(query).subscribe((response: any) => {
       console.log(response)
       this.data= response
     });
+  }
+  selectItem(item:any){
+    this.selected=item
   }
   setTrafficPeriod(value: string): void {
     this.trafficRadioGroup.setValue({ trafficRadio: value });

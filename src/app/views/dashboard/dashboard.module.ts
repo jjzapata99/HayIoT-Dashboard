@@ -10,7 +10,7 @@ import {
   CardModule, DropdownModule,
   FormModule,
   GridModule,
-  NavModule,
+  NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
   ProgressModule,
   TableModule,
   TabsModule
@@ -43,7 +43,10 @@ import { WidgetsModule } from '../widgets/widgets.module';
     AvatarModule,
     TableModule,
     WidgetsModule,
-    DropdownModule
+    DropdownModule,
+    PaginationComponent,
+    PageItemDirective,
+    PageLinkDirective
   ],
   declarations: [DashboardComponent],
   providers: [
