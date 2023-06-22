@@ -32,7 +32,7 @@ import {
   ProgressModule,
   SharedModule,
   SidebarModule,
-  TabsModule,
+  TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent,
   UtilitiesModule
 } from '@coreui/angular';
 
@@ -42,6 +42,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {ClipboardModule} from "@angular/cdk/clipboard";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -86,7 +87,12 @@ const APP_CONTAINERS = [
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ClipboardModule,
+    ToasterComponent,
+    ToastComponent,
+    ToastHeaderComponent,
+    ToastBodyComponent
   ],
   providers: [
     {
