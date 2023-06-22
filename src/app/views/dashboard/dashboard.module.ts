@@ -13,7 +13,7 @@ import {
   NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
   ProgressModule,
   TableModule,
-  TabsModule
+  TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent
 } from '@coreui/angular';
 import {IconModule, IconSetService} from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -24,6 +24,7 @@ import { DashboardComponent } from './dashboard.component';
 import { WidgetsModule } from '../widgets/widgets.module';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {ClipboardModule} from "@angular/cdk/clipboard";
 
 @NgModule({
   imports: [
@@ -50,7 +51,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     PageItemDirective,
     PageLinkDirective,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ClipboardModule,
+    ToasterComponent,
+    ToastComponent,
+    ToastHeaderComponent,
+    ToastBodyComponent
   ],
   declarations: [DashboardComponent],
   providers: [
