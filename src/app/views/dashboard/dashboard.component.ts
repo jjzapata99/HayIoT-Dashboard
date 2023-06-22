@@ -5,7 +5,6 @@ import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/ico
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import {ApiConectionService} from "../../services/api-conection.service";
 import * as moment from "moment";
-
 /*interface IUser {
   name: string;
   state: string;
@@ -25,6 +24,12 @@ import * as moment from "moment";
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  hostURL = "http://200.126.14.233:8000/"
+  position = 'top-end';
+  visible = false;
+  percentage = 0;
+  sensorData: any;
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
@@ -121,6 +126,20 @@ export class DashboardComponent implements OnInit {
     trafficRadio: new UntypedFormControl('Month')
   });
 
+
+  toggleToast() {
+    this.visible = !this.visible;
+  }
+
+  onVisibleChange($event: boolean) {
+    this.visible = $event;
+    this.percentage = !this.visible ? 0 : this.percentage;
+  }
+
+  onTimerChange($event: number) {
+    this.percentage = $event * 25;
+  }
+
   ngOnInit(): void {
     this.initCharts();
   }
@@ -137,12 +156,22 @@ export class DashboardComponent implements OnInit {
       this.data= response
     });
   }
+
+  getDates(){
+    let init = moment(this.range.value.start)
+    let end = moment(this.range.value.end)
+    if (init.isValid() && end.isValid()){
+      return init.format("DD/MM/YYYY") + ' - ' + end.format("DD/MM/YYYY");
+    }
+    return " - "
+
+  }
   fetchData(){
     let init = moment(this.range.value.start).format("DD/MM/YYYY")
     let end = moment(this.range.value.end).format("DD/MM/YYYY")
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.api.getQuery(query).subscribe((response: any) => {
-      console.log(response)
+      this.sensorData = response
     });
     this.queryExample = query
   }
@@ -153,5 +182,49 @@ export class DashboardComponent implements OnInit {
     this.trafficRadioGroup.setValue({ trafficRadio: value });
     this.chartsData.initMainChart(value);
     this.initCharts();
+  }
+
+  download(){
+    this.downloadFile(this.sensorData, 'jsontocsv');
+  }
+
+  downloadFile(data: any, filename='data') {
+    let csvData = this.convertToCSV(data, ['id_sensor','description', 'data', 'type', 'sensedAt']);
+    console.log(csvData)
+    let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
+    let dwldLink = document.createElement("a");
+    let url = URL.createObjectURL(blob);
+    let isSafariBrowser = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+    if (isSafariBrowser) {  //if Safari open in new window to save file with random filename.
+      dwldLink.setAttribute("target", "_blank");
+    }
+    dwldLink.setAttribute("href", url);
+    dwldLink.setAttribute("download", filename + ".csv");
+    dwldLink.style.visibility = "hidden";
+    document.body.appendChild(dwldLink);
+    dwldLink.click();
+    document.body.removeChild(dwldLink);
+  }
+
+  convertToCSV(objArray:any, headerList:any) {
+    let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+    let row = 'S.No,';
+
+    for (let index in headerList) {
+      row += headerList[index] + ',';
+    }
+    row = row.slice(0, -1);
+    str += row + '\r\n';
+    for (let i = 0; i < array.length; i++) {
+      let line = (i+1)+'';
+      for (let index in headerList) {
+        let head = headerList[index];
+
+        line += ',' + array[i][head];
+      }
+      str += line + '\r\n';
+    }
+    return str;
   }
 }
