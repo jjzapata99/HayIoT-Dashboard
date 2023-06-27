@@ -1,0 +1,121 @@
+<div class="bg-light min-vh-50 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="20" md="20" xl="20">
+        <c-card class="mx-1">
+          <c-card-body class="p-4">
+            <h1>Registrar Entidad</h1>
+            <form [formGroup]="form" (submit)="registrarEntidad($event)">
+
+              <div>
+                <c-input-group class="mb-3">
+                  <label cInputGroupText for="tipoEntidad"> Tipo </label>
+                  <select
+                    cSelect
+                    id="tipoEntidad"
+                    [value]="tipoEntidad"
+                    (change)="changeEntidad($event)"
+                    name="tipoEntidad"
+                  >
+                    <option value="sensor">Sensor</option>
+                    <option value="equipo">Equipo</option>
+                    <option value="sitio">Sitio</option>
+                  </select>
+                </c-input-group>
+              </div>
+
+
+
+              <div *ngIf="tipoEntidad === 'sensor'">
+                <div class="textfield_register">
+                  <label for="sitio">Sitio:</label>
+                  <input type="text" id="sitio" formControlName="sitio" name="sitio" />
+                </div>
+                <div class="textfield_register">
+                  <label for="equipo">Equipo:</label>
+                  <input type="text" id="equipo" formControlName="equipo" name="equipo"/>
+                </div>
+                <div class="textfield_register">
+                  <label for="identificador">Identificador:</label>
+                  <input type="text" id="identificador" formControlName="identificador" name="identificador"/>
+                </div>
+                <div class="textfield_register">
+                  <label for="descripcion">Descripción:</label>
+                  <input type="text" id="descripcion" formControlName="descripcion" name="descripcion"/>
+                </div>
+                <div class="textfield_register">
+                  <label for="unidad">Unidad:</label>
+                  <input type="text" id="unidad" formControlName="unidad" name="unidad"
+                  />
+                </div>
+                <div class="textfield_register">
+                  <label for="etiquetasDisponibles"
+                    >Etiquetas disponibles:</label
+                  >
+                  <div *ngFor="let etiqueta of etiquetasDisponibles">
+                    <label>
+                      <input
+                        type="checkbox"
+                        formControlName="etiqueta"
+                        [name]="etiqueta"
+                      />{{ etiqueta }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+              <div *ngIf="tipoEntidad === 'equipo'">
+                <div class="textfield_register">
+                  <label for="sitio">Sitio:</label>
+                  <input type="text" id="sitio" formControlName="sitio" name="sitio" />
+                </div>
+                <div class="textfield_register">
+                  <label for="identificador">Identificador:</label>
+                  <input
+                    type="text"
+                    id="identificador"
+                    formControlName="identificador"
+                    name="identificador"
+                  />
+                </div>
+                <div class="textfield_register">
+                  <label for="equipo">Equipo:</label>
+                  <input
+                    type="text"
+                    id="equipo"
+                    formControlName="equipo"
+                    name="equipo"
+                  />
+                </div>
+              </div>
+
+
+
+
+              <div *ngIf="tipoEntidad === 'sitio'">
+                <div class="textfield_register">
+                  <label for="identificador">Identificador:</label>
+                  <input
+                    type="text"
+                    id="identificador"
+                    formControlName="identificador"
+                    name="identificador"
+                  />
+                </div>
+                <div class="textfield_register">
+                  <label for="area">Área:</label>
+                  <input type="text" id="area" formControlName="area" name="area" />
+                </div>
+              </div>
+
+              <button type="submit">Registrar</button>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

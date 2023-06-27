@@ -10,6 +10,11 @@ export const navItems: INavData[] = [
       text: 'NEW'
     }
   },
+  {
+    name: 'Registro',
+    url: '/registrar',
+    iconComponent: { name: 'cil-playlist-add' },
+  },
   /*{
     title: true,
     name: 'Theme'
@@ -234,6 +239,10 @@ export const navItems: INavData[] = [
       {
         name: 'Error 404',
         url: '/404'
+      },
+      {
+        name: 'Error 500',
+        url: '/500'
       },
       {
         name: 'Error 500',
