@@ -103,11 +103,11 @@
     </c-input-group>
 
     <c-chart
-      [data]="mainChart.data"
+      [data]= sensorData
       [height]="300"
-      [ngStyle]="{ 'marginTop.px': 40 }"
       [options]="mainChart.options"
-      [type]="mainChart.type"
+      [redraw] = true
+      type="line"
     >
       Main chart
     </c-chart>

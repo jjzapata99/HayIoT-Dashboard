@@ -136,7 +136,6 @@ export class DashboardChartsData {
 
     const options = {
       maintainAspectRatio: false,
-      plugins,
       scales: {
         x: {
           grid: {
@@ -144,12 +143,8 @@ export class DashboardChartsData {
           }
         },
         y: {
-          beginAtZero: true,
-          max: 250,
-          ticks: {
-            maxTicksLimit: 5,
-            stepSize: Math.ceil(250 / 5)
-          }
+          stacked: true
+
         }
       },
       elements: {

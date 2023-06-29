@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   position = 'top-end';
   visible = false;
   percentage = 0;
-  sensorData: any;
+  sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
   }
@@ -171,7 +171,34 @@ export class DashboardComponent implements OnInit {
     let end = moment(this.range.value.end).format("DD/MM/YYYY")
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.api.getQuery(query).subscribe((response: any) => {
-      this.sensorData = response
+      let temp : any[] = []
+      let temp2 : any[] = []
+      let temp3 : any[] = []
+      let temp4 : any
+      let temp5: any[] = []
+      for (let i of response){
+        if(!temp.includes(i.type)){
+          temp.push(i.type)
+        }
+        if(!temp2.includes(i.sensedAt)){
+          temp2.push(moment(i.sensedAt).format("h:mm:ss a"))
+
+        }
+      }
+      for(let i of temp){
+        temp3 = []
+        temp4 = response[0].sensedAt
+        for(let x of response){
+          if(i == x.type){
+            temp3.push(x.data)
+          }
+          else{
+            temp3.push(0)
+          }
+        }
+        temp5.push({data: temp3, label: i})
+      }
+      this.sensorData = {datasets: temp5, labels:temp2}
     });
     this.queryExample = query
   }
