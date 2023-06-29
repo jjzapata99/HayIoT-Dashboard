@@ -5,15 +5,12 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/dashboard',
     iconComponent: { name: 'cil-speedometer' },
-    badge: {
-      color: 'info',
-      text: 'NEW'
-    }
+
   },
   {
     name: 'Registro',
     url: '/registrar',
-    iconComponent: { name: 'cil-playlist-add' },
+    iconComponent: { name: 'cil-pencil'},
   },
   /*{
     title: true,

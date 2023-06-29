@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
           temp.push(i.type)
         }
         if(!temp2.includes(i.sensedAt)){
-          temp2.push(moment(i.sensedAt).format("h:mm:ss a"))
+          temp2.push(i.sensedAt)
 
         }
       }
@@ -192,13 +192,12 @@ export class DashboardComponent implements OnInit {
           if(i == x.type){
             temp3.push(x.data)
           }
-          else{
-            temp3.push(0)
-          }
         }
         temp5.push({data: temp3, label: i})
       }
+
       this.sensorData = {datasets: temp5, labels:temp2}
+      console.log(this.sensorData)
     });
     this.queryExample = query
   }
