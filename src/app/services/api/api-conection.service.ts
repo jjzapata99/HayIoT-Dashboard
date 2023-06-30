@@ -10,4 +10,7 @@ export class ApiConectionService {
   getQuery(dire : string): any {
     return this.http.get(this.url+dire)
   }
+  putQuery(dire : string, json: any) : any{
+    return this.http.post(this.url+dire, json)
+  }
 }

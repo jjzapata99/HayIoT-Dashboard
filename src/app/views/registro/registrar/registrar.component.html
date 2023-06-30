@@ -1,3 +1,5 @@
+<c-card class="mb-4">
+
 <div class="bg-light min-vh-50 d-flex flex-row align-items-center">
   <c-container>
     <c-row class="justify-content-center">
@@ -5,8 +7,7 @@
         <c-card class="mx-1" >
           <c-card-body class="p-4" style="align-self: center">
             <h1>Registrar Entidad</h1>
-            <form [formGroup]="form" (submit)="registrarEntidad($event)">
-
+            <form (submit)="registrarEntidad($event)">
               <div>
                 <c-input-group class="mb-3">
                   <label cInputGroupText for="tipoEntidad"> Tipo </label>
@@ -19,7 +20,7 @@
                   >
                     <option value="sensor">Sensor</option>
                     <option value="equipo">Equipo</option>
-                    <option value="sitio">Sitio</option>
+                    <!--<option value="sitio">Sitio</option> !-->
                   </select>
                 </c-input-group>
               </div>
@@ -27,75 +28,54 @@
 
 
               <div *ngIf="tipoEntidad === 'sensor'">
-                <div class="textfield_register">
-                  <label for="sitio">Sitio:</label>
-                  <input type="text" id="sitio" formControlName="sitio" name="sitio" />
-                </div>
-                <div class="textfield_register">
-                  <label for="equipo">Equipo:</label>
-                  <input type="text" id="equipo" formControlName="equipo" name="equipo"/>
-                </div>
-                <div class="textfield_register">
+
+                <c-input-group class="mb-3" style="justify-content: center">
+                  <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+                  <label >Sitio:</label>
+                  <input #site aria-label="Text input with dropdown button" cFormControl />
+
+                  <label >Equipo:</label>
+                  <input #equip aria-label="Text input with dropdown button" cFormControl/>
+
+                <!--<div class="textfield_register">
                   <label for="identificador">Identificador:</label>
                   <input type="text" id="identificador" formControlName="identificador" name="identificador"/>
-                </div>
-                <div class="textfield_register">
-                  <label for="descripcion">Descripción:</label>
-                  <input type="text" id="descripcion" formControlName="descripcion" name="descripcion"/>
-                </div>
-                <div class="textfield_register">
+                </div>!-->
+                  <label >Descripción:</label>
+                  <input #description aria-label="Text input with dropdown button" cFormControl/>
+                <!--<div class="textfield_register">
                   <label for="unidad">Unidad:</label>
                   <input type="text" id="unidad" formControlName="unidad" name="unidad"
                   />
-                </div>
-                <div class="textfield_register">
-                  <label for="etiquetasDisponibles"
-                    >Etiquetas disponibles:</label
-                  >
-                  <div *ngFor="let etiqueta of etiquetasDisponibles">
-                    <label>
-                      <input
-                        type="checkbox"
-                        formControlName="etiqueta"
-                        [name]="etiqueta"
-                      />{{ etiqueta }}
-                    </label>
-                  </div>
-                </div>
+                </div>!-->
+                  <label >Tipos disponibles:</label>
+                  <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.5">
+                    <option *ngFor="let name of etiquetasDisponibles">{{name}}</option>
+                  </select>
+                  <label *ngIf="idSensor != ''">La id del sensor es: {{idSensor}}</label>
+                  </c-row>
+                  <button type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value)">Registrar</button>
+                </c-input-group>
               </div>
 
 
 
 
               <div *ngIf="tipoEntidad === 'equipo'">
-                <div class="textfield_register">
-                  <label for="sitio">Sitio:</label>
-                  <input type="text" id="sitio" formControlName="sitio" name="sitio" />
-                </div>
-                <div class="textfield_register">
-                  <label for="identificador">Identificador:</label>
-                  <input
-                    type="text"
-                    id="identificador"
-                    formControlName="identificador"
-                    name="identificador"
-                  />
-                </div>
-                <div class="textfield_register">
-                  <label for="equipo">Equipo:</label>
-                  <input
-                    type="text"
-                    id="equipo"
-                    formControlName="equipo"
-                    name="equipo"
-                  />
-                </div>
+                <c-input-group class="mb-3" style="justify-content: center">
+                  <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+                    <label>Sitio:</label>
+                  <input #site aria-label="Text input with dropdown button" cFormControl>
+                  <label>Identificador:</label>
+                  <input #id aria-label="Text input with dropdown button" cFormControl>
+
+                  <label >Equipo:</label>
+                  <input #equip aria-label="Text input with dropdown button" cFormControl>
+                  </c-row>
+                  <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value)" >Registrar</button>
+                </c-input-group>
               </div>
-
-
-
-
-              <div *ngIf="tipoEntidad === 'sitio'">
+              <!-- <div *ngIf="tipoEntidad === 'sitio'">
                 <div class="textfield_register">
                   <label for="identificador">Identificador:</label>
                   <input
@@ -109,9 +89,7 @@
                   <label for="area">Área:</label>
                   <input type="text" id="area" formControlName="area" name="area" />
                 </div>
-              </div>
-
-              <button type="submit" >Registrar</button>
+              </div> !-->
             </form>
           </c-card-body>
         </c-card>
@@ -119,3 +97,4 @@
     </c-row>
   </c-container>
 </div>
+</c-card>

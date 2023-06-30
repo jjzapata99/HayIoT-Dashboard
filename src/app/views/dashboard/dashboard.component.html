@@ -17,7 +17,7 @@
       <button type="button" (click)="fetchSensors(val.value, option.value, 0)" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
     </c-input-group>
     <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
-      <table class="table table-striped">
+      <table *ngIf="data['data'][0].id!= ''" class="table table-striped">
         <thead>
         <tr class="table-dark">
           <th scope="col">Id</th>
@@ -28,7 +28,7 @@
           <th scope="col"></th>
         </tr>
         </thead>
-        <tbody *ngIf="data['data'][0].id!= ''">
+        <tbody >
         <tr *ngFor="let d of data['data']; let i = index"
             (click)="selectItem(d)" [ngClass]="{'row-selected': d == selected}">
           <td>{{d.id}}</td>
@@ -69,7 +69,7 @@
       </tbody>
     </table>
   </c-row>
-    <c-row class="mb-3" style="justify-content: center; align-content: center">
+    <c-row *ngIf="selected.id != ''" class="mb-3" style="justify-content: center; align-content: center">
       <c-col sm="6">
         <c-input-group class="mb-3">
           <span cInputGroupText id="basic-addon3">Ingrese la fecha de busqueda
@@ -85,8 +85,9 @@
         </c-input-group>
       </c-col>
       <c-col sm="6">
-        <button (click)="fetchData()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
-        <button (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
+        <button [disabled]="click"  (click)="fetchData(); click=true" type="button" class="btn btn-primary">
+          <span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
+        <button *ngIf="sensorData['datasets'].length >0" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
       </c-col>
     </c-row>
 
@@ -101,15 +102,15 @@
         Copiar
       </button>
     </c-input-group>
+    <c-spinner *ngIf="click" aria-hidden="true" size="sm"></c-spinner>
 
-    <c-chart
+    <c-chart *ngIf="!click && sensorData['datasets'].length >0"
       [data]= sensorData
       [height]="300"
       [options]="mainChart.options"
       [redraw] = true
       type="line"
     >
-      Main chart
     </c-chart>
   </c-card-body>
   <!--<c-card-footer>

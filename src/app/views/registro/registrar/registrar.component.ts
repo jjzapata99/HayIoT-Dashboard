@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {ApiConectionService} from "../../../services/api/api-conection.service";
 
 @Component({
   selector: 'app-registrar',
@@ -9,9 +10,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class RegistrarComponent {
   form!: FormGroup
   tipoEntidad!: string;
-  etiquetasDisponibles: string[] = ['temp', 'thermal', 'time'];
-
-  constructor(private formBuilder: FormBuilder) {
+  etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
+  isChecked :any;
+  isCheckedName : any;
+  idSensor : any = '';
+  constructor(private api: ApiConectionService, private formBuilder: FormBuilder) {
 
   }
 
@@ -61,5 +64,21 @@ export class RegistrarComponent {
       });
     }
   }
-
+  onChange(e : any){
+    this.isChecked = !this.isChecked;
+    this.isCheckedName = e.target.name;
+  }
+  sendDataSensor(site : any, equip : any, description : any, type: any){
+    let query = 'pushSensor/'
+    this.api.putQuery(query, ({'siteRef':site,'equipRef': equip, 'description':description, 'type':type })).subscribe((response: any) => {
+    this.idSensor = response
+      console.log(response)
+  });
+  }
+  sendDataEquip(id : any, site : any, equip : any){
+    let query = 'pushEquip/'
+    this.api.putQuery(query, ({'id':id,'siteRef': site, 'equip':equip})).subscribe((response: any) => {
+      console.log(response)
+    });
+  }
 }
