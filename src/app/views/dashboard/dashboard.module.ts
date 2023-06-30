@@ -4,16 +4,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { cilList, cilShieldAlt } from '@coreui/icons';
 
 import {
-  AvatarModule,
-  ButtonGroupModule,
-  ButtonModule,
-  CardModule, DropdownModule,
-  FormModule,
-  GridModule,
-  NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
-  ProgressModule,
-  TableModule,
-  TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent
+    AvatarModule,
+    ButtonGroupModule,
+    ButtonModule,
+    CardModule, DropdownModule,
+    FormModule,
+    GridModule,
+    NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
+    ProgressModule, SpinnerComponent,
+    TableModule,
+    TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent
 } from '@coreui/angular';
 import {IconModule, IconSetService} from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -27,37 +27,38 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 
 @NgModule({
-  imports: [
-    DashboardRoutingModule,
-    CardModule,
-    NavModule,
-    IconModule,
-    TabsModule,
-    CommonModule,
-    GridModule,
-    ProgressModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    IconModule,
-    FormModule,
-    ButtonModule,
-    ButtonGroupModule,
-    ChartjsModule,
-    AvatarModule,
-    TableModule,
-    WidgetsModule,
-    DropdownModule,
-    PaginationComponent,
-    PageItemDirective,
-    PageLinkDirective,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    ClipboardModule,
-    ToasterComponent,
-    ToastComponent,
-    ToastHeaderComponent,
-    ToastBodyComponent
-  ],
+    imports: [
+        DashboardRoutingModule,
+        CardModule,
+        NavModule,
+        IconModule,
+        TabsModule,
+        CommonModule,
+        GridModule,
+        ProgressModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        IconModule,
+        FormModule,
+        ButtonModule,
+        ButtonGroupModule,
+        ChartjsModule,
+        AvatarModule,
+        TableModule,
+        WidgetsModule,
+        DropdownModule,
+        PaginationComponent,
+        PageItemDirective,
+        PageLinkDirective,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        ClipboardModule,
+        ToasterComponent,
+        ToastComponent,
+        ToastHeaderComponent,
+        ToastBodyComponent,
+        SpinnerComponent
+    ],
   declarations: [DashboardComponent],
   providers: [
     IconSetService]

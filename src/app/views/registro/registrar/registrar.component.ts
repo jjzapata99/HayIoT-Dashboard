@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {ApiConectionService} from "../../../services/api-conection.service";
+import {ApiConectionService} from "../../../services/api/api-conection.service";
 
 @Component({
   selector: 'app-registrar',

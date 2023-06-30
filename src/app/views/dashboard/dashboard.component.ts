@@ -3,7 +3,7 @@ import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup} from '@ang
 import { IconSetService } from '@coreui/icons-angular';
 import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
-import {ApiConectionService} from "../../services/api-conection.service";
+import {ApiConectionService} from "../../services/api/api-conection.service";
 import * as moment from "moment";
 /*interface IUser {
   name: string;
@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
   position = 'top-end';
   visible = false;
   percentage = 0;
+  click = false;
+  csvData: any;
   sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
@@ -171,12 +173,13 @@ export class DashboardComponent implements OnInit {
     let end = moment(this.range.value.end).format("DD/MM/YYYY")
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.api.getQuery(query).subscribe((response: any) => {
+      this.csvData = response
       let temp : any[] = []
       let temp2 : any[] = []
       let temp3 : any[] = []
       let temp4 : any
       let temp5: any[] = []
-      for (let i of response){
+      for (let i of this.csvData){
         if(!temp.includes(i.type)){
           temp.push(i.type)
         }
@@ -188,7 +191,7 @@ export class DashboardComponent implements OnInit {
       for(let i of temp){
         temp3 = []
         temp4 = response[0].sensedAt
-        for(let x of response){
+        for(let x of this.csvData){
           if(i == x.type){
             temp3.push(x.data)
           }
@@ -198,6 +201,7 @@ export class DashboardComponent implements OnInit {
 
       this.sensorData = {datasets: temp5, labels:temp2}
       console.log(this.sensorData)
+      this.click = false
     });
     this.queryExample = query
   }
@@ -211,12 +215,11 @@ export class DashboardComponent implements OnInit {
   }
 
   download(){
-    this.downloadFile(this.sensorData, 'jsontocsv');
+    this.downloadFile(this.csvData, 'hayIot');
   }
 
   downloadFile(data: any, filename='data') {
     let csvData = this.convertToCSV(data, ['id_sensor','description', 'data', 'type', 'sensedAt']);
-    console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
