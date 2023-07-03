@@ -104,6 +104,8 @@
     </c-input-group>
     <c-spinner *ngIf="click" aria-hidden="true" size="sm"></c-spinner>
 
+    <app-bar></app-bar>
+
     <c-chart *ngIf="!click && sensorData['datasets'].length >0"
       [data]= sensorData
       [height]="300"
