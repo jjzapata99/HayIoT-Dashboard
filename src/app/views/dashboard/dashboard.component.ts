@@ -154,8 +154,14 @@ export class DashboardComponent implements OnInit {
     if (option == 'ID') query = 'getSensors?id='.concat(val+'&max=10&index=0')
     else query = 'getSensors?name='.concat(val+'&max=10&index='.concat(index))
     this.api.getQuery(query).subscribe((response: any) => {
-      console.log(response)
-      this.data= response
+      if(response['data'].length>0){
+        this.data= response
+        this.sensorData = {datasets:[{data:[0],label:''}], labels:['']}
+      }
+      else {
+        this.selected = {'id':'','siteref':'','equipref':'','type':'','description':''}
+        this.data = {'data': [this.selected], 'indexs': []}
+      }
     });
   }
 
@@ -198,7 +204,6 @@ export class DashboardComponent implements OnInit {
         }
         temp5.push({data: temp3, label: i})
       }
-
       this.sensorData = {datasets: temp5, labels:temp2}
       console.log(this.sensorData)
       this.click = false
