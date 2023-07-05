@@ -9,7 +9,7 @@
 
     <c-input-group class="mb-3">
       <span cInputGroupText><svg cIcon name="cilSearch" size="m" title="Numbered List Icon"></svg></span>
-      <input #val aria-label="Text input with dropdown button" cFormControl/>
+      <input #val aria-label="Text input with dropdown button" placeholder="Ingrese el Id o Nombre del sensor" cFormControl/>
       <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.2">
         <option value="ID">ID</option>
         <option value="NAME">Nombre</option>
@@ -93,7 +93,7 @@
 
     <label cLabel>Referencia API</label>
     <c-input-group class="mb-3">
-      <span cInputGroupText id="basic-addon3">{{hostURL + queryExample}}</span>
+      <span cInputGroupText id="basic-addon3" style="overflow: hidden; width: fit-content">{{hostURL + queryExample}}</span>
       <button cButton color="secondary"
               type="button"
               variant="outline"

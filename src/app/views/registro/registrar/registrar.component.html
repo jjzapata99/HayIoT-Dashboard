@@ -1,61 +1,51 @@
-<c-card class="mb-4">
-
-<div class="bg-light min-vh-50 d-flex flex-row align-items-center">
-  <c-container>
-    <c-row class="justify-content-center">
-      <c-col lg="20" md="20" xl="20">
-        <c-card class="mx-1" >
-          <c-card-body class="p-4" style="align-self: center">
-            <h1>Registrar Entidad</h1>
-            <form (submit)="registrarEntidad($event)">
-              <div>
-                <c-input-group class="mb-3">
-                  <label cInputGroupText for="tipoEntidad"> Tipo </label>
-                  <select
-                    cSelect
-                    id="tipoEntidad"
-                    [value]="tipoEntidad"
-                    (change)="changeEntidad($event)"
-                    name="tipoEntidad"
-                  >
-                    <option value="sensor">Sensor</option>
-                    <option value="equipo">Equipo</option>
-                    <!--<option value="sitio">Sitio</option> !-->
-                  </select>
-                </c-input-group>
-              </div>
-
-
-
+<c-card class="mb-4"  >
+  <c-card-body class="p-4" style="align-self: center; text-align: center">
+    <c-row style="text-align-last: center;">
+      <h1 >Registrar Entidad</h1>
+    </c-row>
+    <div>
+      <c-input-group class="mb-3">
+        <label cInputGroupText for="tipoEntidad"> Tipo </label>
+        <select
+          cSelect
+          id="tipoEntidad"
+          [value]="tipoEntidad"
+          (change)="changeEntidad($event)"
+          name="tipoEntidad"
+        >
+          <option value="sensor">Sensor</option>
+          <option value="equipo">Equipo</option>
+          <option value="sitio">Sitio</option>
+        </select>
+      </c-input-group>
+    </div>
+      <form cForm
+            class="row g-3 needs-validation">
               <div *ngIf="tipoEntidad === 'sensor'">
+                <c-input-group class="mb-3" style="justify-content: center; ">
+                  <c-row class="px-4 py-1">
+                    <select #site>
+                      <option selected> Sitio </option>
+                      <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>
+                    </select>
+                    <select #equip>
+                      <option selected> Equipo </option>
+                      <option *ngFor="let i of equipList" value="{{i.id}}">{{i.id}}</option>
+                    </select>
+                  <input #description aria-label="Text input with dropdown  button"
+                         id="equip1" required type="text"
+                         placeholder="Descripción" cFormControl/>
 
-                <c-input-group class="mb-3" style="justify-content: center">
-                  <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
-                  <label >Sitio:</label>
-                  <input #site aria-label="Text input with dropdown button" cFormControl />
-
-                  <label >Equipo:</label>
-                  <input #equip aria-label="Text input with dropdown button" cFormControl/>
-
-                <!--<div class="textfield_register">
-                  <label for="identificador">Identificador:</label>
-                  <input type="text" id="identificador" formControlName="identificador" name="identificador"/>
-                </div>!-->
-                  <label >Descripción:</label>
-                  <input #description aria-label="Text input with dropdown button" cFormControl/>
-                <!--<div class="textfield_register">
-                  <label for="unidad">Unidad:</label>
-                  <input type="text" id="unidad" formControlName="unidad" name="unidad"
-                  />
-                </div>!-->
-                  <label >Tipos disponibles:</label>
-                  <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.5">
+                    <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.5">
+                    <option selected> Tipo </option>
                     <option *ngFor="let name of etiquetasDisponibles">{{name}}</option>
                   </select>
                   <label *ngIf="idSensor != ''">La id del sensor es: {{idSensor}}</label>
                   </c-row>
-                  <button type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value)">Registrar</button>
+                  <button cButton
+                    type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value)" >Registrar</button>
                 </c-input-group>
+
               </div>
 
 
@@ -63,38 +53,31 @@
 
               <div *ngIf="tipoEntidad === 'equipo'">
                 <c-input-group class="mb-3" style="justify-content: center">
-                  <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
-                    <label>Sitio:</label>
-                  <input #site aria-label="Text input with dropdown button" cFormControl>
-                  <label>Identificador:</label>
-                  <input #id aria-label="Text input with dropdown button" cFormControl>
+                  <c-row class="px-4 py-2">
+                    <select #site>
+                      <option selected> Sitio </option>
+                      <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>
+                      <!--<option value="sitio">Sitio</option> !-->
+                    </select>
+                  <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
 
-                  <label >Equipo:</label>
-                  <input #equip aria-label="Text input with dropdown button" cFormControl>
+                  <input #equip aria-label="Text input with dropdown button" placeholder="Equipo" cFormControl>
                   </c-row>
                   <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value)" >Registrar</button>
                 </c-input-group>
               </div>
-              <!-- <div *ngIf="tipoEntidad === 'sitio'">
-                <div class="textfield_register">
-                  <label for="identificador">Identificador:</label>
-                  <input
-                    type="text"
-                    id="identificador"
-                    formControlName="identificador"
-                    name="identificador"
-                  />
-                </div>
-                <div class="textfield_register">
-                  <label for="area">Área:</label>
-                  <input type="text" id="area" formControlName="area" name="area" />
-                </div>
-              </div> !-->
-            </form>
-          </c-card-body>
-        </c-card>
-      </c-col>
-    </c-row>
-  </c-container>
-</div>
+               <div *ngIf="tipoEntidad === 'sitio'">
+                 <c-input-group class="mb-3" style="justify-content: center">
+                   <c-row class="pr-3 px-4 py-4">
+                  <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
+                     <input #description aria-label="Text input with dropdown button" placeholder="Descripción" cFormControl>
+                   </c-row>
+                   <button type="submit" (click)="sendDataSite(id.value, description.value)" >Registrar</button>
+                 </c-input-group>
+              </div>
+        <span *ngIf="valid" style="color: #cf2f4c">¡Error en los Datos Ingresados!</span>
+
+      </form>
+  </c-card-body>
+
 </c-card>

@@ -27,33 +27,40 @@ import { ValidationComponent } from './validation/validation.component';
 
 
 @NgModule({
-  declarations: [
-    RangesComponent,
-    FloatingLabelsComponent,
-    FormControlsComponent,
-    SelectComponent,
-    ChecksRadiosComponent,
-    InputGroupsComponent,
-    LayoutComponent,
-    ValidationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsRoutingModule,
-    DocsComponentsModule,
-    CardModule,
-    FormModule,
-    GridModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FormModule,
-    ButtonModule,
-    ButtonGroupModule,
-    DropdownModule,
-    SharedModule,
-    ListGroupModule
-  ]
+    declarations: [
+        RangesComponent,
+        FloatingLabelsComponent,
+        FormControlsComponent,
+        SelectComponent,
+        ChecksRadiosComponent,
+        InputGroupsComponent,
+        LayoutComponent,
+        ValidationComponent
+    ],
+    exports: [
+        FormControlsComponent,
+        RangesComponent,
+        ChecksRadiosComponent,
+        SelectComponent,
+        ValidationComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsRoutingModule,
+        DocsComponentsModule,
+        CardModule,
+        FormModule,
+        GridModule,
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FormModule,
+        ButtonModule,
+        ButtonGroupModule,
+        DropdownModule,
+        SharedModule,
+        ListGroupModule
+    ]
 })
 export class CoreUIFormsModule {
 }

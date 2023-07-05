@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { RegistroRoutingModule } from './registro-routing.module';
 import { RegistrarComponent } from './registrar/registrar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CardModule, NavModule, TabsModule, GridModule, ProgressModule, ButtonModule, FormModule, ButtonGroupModule, AvatarModule, TableModule } from '@coreui/angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { IconModule } from '@coreui/icons-angular';
 import { WidgetsModule } from '../widgets/widgets.module';
+import {CoreUIFormsModule} from "../forms/forms.module";
 
 
 @NgModule({
@@ -30,7 +31,10 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ButtonGroupModule,
     ChartjsModule,
     AvatarModule,
-    TableModule
+    TableModule,
+    WidgetsModule,
+    CoreUIFormsModule,
+    FormsModule
   ]
 })
 export class RegistroModule { }

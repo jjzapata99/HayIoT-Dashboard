@@ -14,11 +14,15 @@ export class RegistrarComponent {
   isChecked :any;
   isCheckedName : any;
   idSensor : any = '';
+  equipList : any;
+  siteList : any;
+  valid = false;
   constructor(private api: ApiConectionService, private formBuilder: FormBuilder) {
-
+    this.fetchEquips()
+    this.fetchSites()
   }
 
-  registrarEntidad(event:Event) {
+/*registrarEntidad(event:Event) {
     if (this.form.valid) {
       console.log(this.form.value)
     } else {
@@ -36,49 +40,82 @@ export class RegistrarComponent {
     }
     event.preventDefault();
 
-  }
+  }*/
   changeEntidad(event:Event){
     this.tipoEntidad=(event.target as HTMLSelectElement).value;
     if (this.tipoEntidad == 'sensor'){
-      this.form = this.formBuilder.group({
-        sitio: ['', Validators.required],
-        equipo: ['', Validators.required],
-        identificador: ['', Validators.required],
-        descripcion: ['', [Validators.required]],
-        unidad: ['', Validators.required],
-        etiqueta: ['', Validators.required],
-
-      });
+      this.valid=false
+      this.fetchEquips()
+      this.fetchSites()
     }
     else if (this.tipoEntidad =='equipo'){
-      this.form = this.formBuilder.group({
-        sitio: ['', Validators.required],
-        identificador: ['', [Validators.required]],
-        equipo: ['', Validators.required],
-      });
+      this.valid=false
+      this.fetchSites()
     }
     else if (this.tipoEntidad =='sitio'){
-      this.form = this.formBuilder.group({
-        identificador: ['', Validators.required],
-        area: ['', [Validators.required]],
-      });
+      this.valid=false
+
     }
-  }
+  }/*
   onChange(e : any){
     this.isChecked = !this.isChecked;
     this.isCheckedName = e.target.name;
+  }*/
+
+  fetchSites(){
+    let query = 'getSites'
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.siteList=response
+    });
   }
+  fetchEquips(){
+    let query = 'getEquips'
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.equipList=response
+
+    });
+  }
+
   sendDataSensor(site : any, equip : any, description : any, type: any){
-    let query = 'pushSensor/'
-    this.api.putQuery(query, ({'siteRef':site,'equipRef': equip, 'description':description, 'type':type })).subscribe((response: any) => {
-    this.idSensor = response
-      console.log(response)
-  });
+    if((description.toString()!='') && (site == 'Sitio') && (equip != 'Equipo') && (type != 'Tipo')){
+      this.valid= false
+      let query = 'pushSensor/'
+      this.api.putQuery(query, ({'siteRef':site,'equipRef': equip, 'description':description, 'type':type })).subscribe((response: any) => {
+        this.idSensor = response
+      });
+    }
+    else {
+      this.valid= true
+      console.log('Validar datos ingresados')
+    }
   }
   sendDataEquip(id : any, site : any, equip : any){
-    let query = 'pushEquip/'
-    this.api.putQuery(query, ({'id':id,'siteRef': site, 'equip':equip})).subscribe((response: any) => {
-      console.log(response)
-    });
+    console.log(id.length, site, equip.toString())
+    if((id.toString()!='') && (equip.toString()!='') && (site != 'Sitio') ) {
+      this.valid= false
+      let query = 'pushEquip/'
+      this.api.putQuery(query, ({'id': id, 'siteRef': site, 'equip': equip})).subscribe((response: any) => {
+        if (response == 1) {
+          this.fetchEquips()
+        }
+      });
+    }else {
+      this.valid= true
+      console.log('Validar datos ingresados')
+    }
+  }
+  sendDataSite(id: any, desc: any){
+    if((id.toString()!='') && (desc.toString()!='') ){
+      this.valid= false
+      let query = 'pushSite/'
+      this.api.putQuery(query, ({'id':id,'site': desc})).subscribe((response: any) => {
+        if(response==1) {
+          this.fetchSites()
+        }
+      });
+    }else {
+      this.valid= true
+      console.log('Validar datos ingresados')
+    }
   }
 }
