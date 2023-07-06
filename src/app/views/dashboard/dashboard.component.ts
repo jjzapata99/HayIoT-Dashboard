@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   visible = false;
   percentage = 0;
   click = false;
+  spinner =false;
   csvData: any;
   sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
@@ -40,7 +41,8 @@ export class DashboardComponent implements OnInit {
     end: new FormControl<Date | null>(null),
   });
   queryExample = ''
-  selected = {'id':'','siteref':'','equipref':'','type':'','description':''}
+  lastDate: any= ''
+  selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   data = {'data':[this.selected], 'indexs':[]}
   /*public users: IUser[] = [
     {
@@ -159,7 +161,7 @@ export class DashboardComponent implements OnInit {
         this.sensorData = {datasets:[{data:[0],label:''}], labels:['']}
       }
       else {
-        this.selected = {'id':'','siteref':'','equipref':'','type':'','description':''}
+        this.selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
         this.data = {'data': [this.selected], 'indexs': []}
       }
     });
@@ -178,6 +180,7 @@ export class DashboardComponent implements OnInit {
     let init = moment(this.range.value.start).format("DD/MM/YYYY")
     let end = moment(this.range.value.end).format("DD/MM/YYYY")
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
+    this.spinner= true
     this.api.getQuery(query).subscribe((response: any) => {
       this.csvData = response
       let temp : any[] = []
@@ -185,13 +188,14 @@ export class DashboardComponent implements OnInit {
       let temp3 : any[] = []
       let temp4 : any
       let temp5: any[] = []
+      let time = ''
       for (let i of this.csvData){
+        time = new Date(i.sensedAt + 'Z').toLocaleString()
         if(!temp.includes(i.type)){
           temp.push(i.type)
         }
-        if(!temp2.includes(i.sensedAt)){
-          temp2.push(i.sensedAt)
-
+        if(!temp2.includes(time)){
+          temp2.push(time)
         }
       }
       for(let i of temp){
@@ -202,15 +206,30 @@ export class DashboardComponent implements OnInit {
             temp3.push(x.data)
           }
         }
-        temp5.push({data: temp3, label: i})
+        let color = this.getRandomColor()
+        temp5.push({data: temp3, label: i, borderColor:color,
+          backgroundColor : color,
+          pointBackgroundColor: color,
+          pointBorderColort: color})
       }
       this.sensorData = {datasets: temp5, labels:temp2}
       console.log(this.sensorData)
       this.click = false
+      this.spinner=false
     });
     this.queryExample = query
   }
   selectItem(item:any){
+    this.api.getQuery("getLastSensed?id=".concat(item.id)).subscribe((response: any) => {
+      if(response['lastSensed']!= 'Nan') {
+        this.lastDate = new Date(response['lastSensed'] + 'Z').toLocaleString()
+        this.click=false
+      }
+      else {
+        this.lastDate = 'Not Sensed';
+        this.click = true
+      }
+    });
     this.selected=item
   }
   setTrafficPeriod(value: string): void {
@@ -224,7 +243,7 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadFile(data: any, filename='data') {
-    let csvData = this.convertToCSV(data, ['id_sensor','description', 'data', 'type', 'sensedAt']);
+    let csvData = this.convertToCSV(data, ['id_sensor', 'data', 'type', 'sensedAt']);
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -261,4 +280,24 @@ export class DashboardComponent implements OnInit {
     }
     return str;
   }
+  getRandomColor(){
+    // Define los valores mínimos y máximos para los componentes HSL
+    const minHue = 0;       // Valor mínimo de matiz (0-360)
+    const maxHue = 360;     // Valor máximo de matiz (0-360)
+    const minSaturation = 20;  // Valor mínimo de saturación (0-100)
+    const maxSaturation = 50; // Valor máximo de saturación (0-100)
+    const minLightness = 40;   // Valor mínimo de luminosidad (0-100)
+    const maxLightness = 60;   // Valor máximo de luminosidad (0-100)
+
+    // Genera valores aleatorios para los componentes HSL
+    const hue = Math.floor(Math.random() * (maxHue - minHue + 1)) + minHue;
+    const saturation = Math.floor(Math.random() * (maxSaturation - minSaturation + 1)) + minSaturation;
+    const lightness = Math.floor(Math.random() * (maxLightness - minLightness + 1)) + minLightness;
+
+    // Crea la cadena de color en formato HSL
+    const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+    return color;
+  }
+
 }
