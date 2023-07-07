@@ -43,7 +43,8 @@
                   <label *ngIf="idSensor != ''">La id del sensor es: {{idSensor}}</label>
                   </c-row>
                   <button cButton
-                    type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value)" >Registrar</button>
+                    type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value);
+                    site.value='Sitio'; equip.value='Equipo'; description.value=''; option.value='';" >Registrar</button>
                 </c-input-group>
 
               </div>
@@ -63,7 +64,10 @@
 
                   <input #equip aria-label="Text input with dropdown button" placeholder="Equipo" cFormControl>
                   </c-row>
-                  <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value)" >Registrar</button>
+                  <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value);
+                  id.value='';
+                  site.value='Sitio';
+                  equip.value='';">Registrar</button>
                 </c-input-group>
               </div>
                <div *ngIf="tipoEntidad === 'sitio'">
@@ -72,7 +76,8 @@
                   <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
                      <input #description aria-label="Text input with dropdown button" placeholder="Descripción" cFormControl>
                    </c-row>
-                   <button type="submit" (click)="sendDataSite(id.value, description.value)" >Registrar</button>
+                   <button type="submit" (click)="sendDataSite(id.value, description.value);
+                    id.value=''; description.value='';" >Registrar</button>
                  </c-input-group>
               </div>
         <span *ngIf="valid" style="color: #cf2f4c">¡Error en los Datos Ingresados!</span>

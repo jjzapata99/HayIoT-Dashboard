@@ -77,7 +77,7 @@ export class RegistrarComponent {
   }
 
   sendDataSensor(site : any, equip : any, description : any, type: any){
-    if((description.toString()!='') && (site == 'Sitio') && (equip != 'Equipo') && (type != 'Tipo')){
+    if((description.toString()!='') && (site != 'Sitio') && (equip != 'Equipo') && (type != 'Tipo')){
       this.valid= false
       let query = 'pushSensor/'
       this.api.putQuery(query, ({'siteRef':site,'equipRef': equip, 'description':description, 'type':type })).subscribe((response: any) => {
@@ -90,13 +90,15 @@ export class RegistrarComponent {
     }
   }
   sendDataEquip(id : any, site : any, equip : any){
-    console.log(id.length, site, equip.toString())
     if((id.toString()!='') && (equip.toString()!='') && (site != 'Sitio') ) {
       this.valid= false
       let query = 'pushEquip/'
       this.api.putQuery(query, ({'id': id, 'siteRef': site, 'equip': equip})).subscribe((response: any) => {
         if (response == 1) {
           this.fetchEquips()
+        }
+        else if(response == 0){
+          console.log('erorrsfas')
         }
       });
     }else {
