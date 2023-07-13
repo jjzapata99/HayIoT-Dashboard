@@ -1,0 +1,75 @@
+<!-- <app-widgets-dropdown></app-widgets-dropdown> !-->
+<c-card class="mb-4">
+    <c-card-body>
+      <c-row class="mb-3">
+        <c-col sm="5">
+          <h2 class="card-title mb-0" id="traffic">Entidades Registradas</h2>
+        </c-col>
+      </c-row>
+
+      <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+        <h3>Sitios Registrados</h3>
+        <table class="table table-striped">
+          <thead>
+          <tr class="table-dark">
+            <th scope="col">Id</th>
+            <th scope="col">Description</th>
+          </tr>
+          </thead>
+          <tbody >
+        <tr *ngFor="let d of data_site['data'];">
+            <td>{{d.id}}</td>
+            <td>{{d.site}}</td>
+          </tr> 
+          </tbody>
+        </table>
+      </c-row>
+
+
+      <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+        <h3>Equipos Registrados</h3>
+        <table class="table table-striped">
+          <thead>
+          <tr class="table-dark">
+            <th scope="col">Sitio</th>
+            <th scope="col">Identificador</th>
+            <th scope="col">Equipo</th>
+          </tr>
+          </thead>
+          <tbody >
+        <tr *ngFor="let d of data_equip['data'];">
+            <td>{{d.id}}</td>
+            <td>{{d.siteRef}}</td>
+            <td>{{d.equip}}</td>
+          </tr> 
+          </tbody>
+        </table>
+      </c-row>
+
+
+      <c-row class="mt-1 mb-3 pr-3 px-4 py-4">
+        <h3>Sensores Registrados</h3>
+        <table class="table table-striped">
+          <thead>
+          <tr class="table-dark">
+            <th scope="col">Identificador</th>
+            <th scope="col">Sitio</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Descripción</th>
+          </tr>
+          </thead>
+          <tbody >
+        <tr *ngFor="let d of data_sensor['data'];">
+            <td>{{d.id}}</td>
+            <td>{{d.siteref}}</td>
+            <td>{{d.equipref}}</td>
+            <td>{{d.type}}</td>
+            <td>{{d.description}}</td>
+          </tr> 
+          </tbody>
+        </table>
+      </c-row>
+      <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
+    </c-card-body>
+  </c-card>

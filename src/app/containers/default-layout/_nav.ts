@@ -12,6 +12,11 @@ export const navItems: INavData[] = [
     url: '/registrar',
     iconComponent: { name: 'cil-pencil'},
   },
+  {
+    name: 'Entidades',
+    url: '/entidades',
+    iconComponent: { name: 'cil-file'},
+  },
   /*{
     title: true,
     name: 'Theme'

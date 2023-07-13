@@ -32,6 +32,7 @@ import {
   ProgressModule,
   SharedModule,
   SidebarModule,
+  SpinnerComponent,
   TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent,
   UtilitiesModule
 } from '@coreui/angular';
@@ -43,6 +44,8 @@ import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ClipboardModule} from "@angular/cdk/clipboard";
+import { RegistrarComponent } from './views/registrar/registrar.component';
+import { EntidadesComponent } from './views/entidades/entidades.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -51,7 +54,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -92,7 +95,8 @@ const APP_CONTAINERS = [
     ToasterComponent,
     ToastComponent,
     ToastHeaderComponent,
-    ToastBodyComponent
+    ToastBodyComponent,
+    SpinnerComponent
   ],
   providers: [
     {
