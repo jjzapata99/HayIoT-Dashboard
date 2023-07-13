@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   csvData: any;
   siteList : any;
   editable = true;
+  cText = '';
   validator = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
@@ -142,6 +143,7 @@ export class DashboardComponent implements OnInit {
 
 
   toggleToast() {
+    this.cText='Valor Copiado!'
     this.visible = !this.visible;
   }
 
@@ -313,12 +315,20 @@ export class DashboardComponent implements OnInit {
     let item = {'id': id, "siteRef": this.editedData.site, "equipRef": this.editedData.equip,
       "description": desc, "type": this.editedData.type}
     this.api.putQuery("editDataSensor/", item).subscribe((response: any) => {
-      console.log(response)
+      if(response == 1){
+        this.cText='Sensor editado Exitosamente';
+        this.visible = !this.visible;
+      }
+      else {
+        this.cText='Ocurrio un fallo'
+        this.visible = !this.visible;
+      }
     });
     this.data['data'][i]={'id':id,'siteref':this.editedData.site,'equipref':this.editedData.equip,
       'type':this.editedData.type,'description':desc,'lastSensed':''}
     this.enableEdit=false;
     this.editable = false;
+
   }
 
   getRandomColor(){

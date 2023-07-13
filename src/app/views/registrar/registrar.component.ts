@@ -8,6 +8,10 @@ import {ApiConectionService} from "../../services/api/api-conection.service";
   styleUrls: ['./registrar.component.scss']
 })
 export class RegistrarComponent {
+  position = 'top-end';
+  visible = false;
+  percentage = 0;
+  cText='';
   form!: FormGroup
   tipoEntidad!: string;
   etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
@@ -81,7 +85,20 @@ export class RegistrarComponent {
       this.valid= false
       let query = 'pushSensor/'
       this.api.putQuery(query, ({'siteRef':site,'equipRef': equip, 'description':description, 'type':type })).subscribe((response: any) => {
-        this.idSensor = response
+        if(response.id==''){
+          this.cText='Ocurrio un Error!'
+          this.visible = !this.visible;
+        }
+        else if(response.exist == 1){
+          this.cText='Se agrego el sensor!'
+          this.visible = !this.visible;
+          this.idSensor = response.id
+        }
+        else if(response.exist ==0){
+          this.cText='El sensor ya existe!'
+          this.visible = !this.visible;
+          this.idSensor = response.id
+        }
       });
     }
     else {
@@ -96,9 +113,12 @@ export class RegistrarComponent {
       this.api.putQuery(query, ({'id': id, 'siteRef': site, 'equip': equip})).subscribe((response: any) => {
         if (response == 1) {
           this.fetchEquips()
+          this.cText='Equipo agregado!'
+          this.visible = !this.visible;
         }
         else if(response == 0){
-          console.log('erorrsfas')
+          this.cText='El equipo ya Existe!'
+          this.visible = !this.visible;
         }
       });
     }else {
@@ -113,11 +133,24 @@ export class RegistrarComponent {
       this.api.putQuery(query, ({'id':id,'site': desc})).subscribe((response: any) => {
         if(response==1) {
           this.fetchSites()
+          this.cText='Se agrego el Sitio!'
+          this.visible = !this.visible;
+        }else if(response == 0) {
+          this.cText = 'El sitio ya Existe!'
+          this.visible = !this.visible;
         }
       });
     }else {
       this.valid= true
       console.log('Validar datos ingresados')
     }
+  }
+  onVisibleChange($event: boolean) {
+    this.visible = $event;
+    this.percentage = !this.visible ? 0 : this.percentage;
+  }
+
+  onTimerChange($event: number) {
+    this.percentage = $event * 25;
   }
 }

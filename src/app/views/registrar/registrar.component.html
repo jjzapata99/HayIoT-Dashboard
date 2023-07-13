@@ -44,7 +44,7 @@
                   </c-row>
                   <button cButton
                     type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value);
-                    site.value='Sitio'; equip.value='Equipo'; description.value=''; option.value='';" >Registrar</button>
+                    site.value='Sitio'; equip.value='Equipo'; description.value=''; option.value='Tipo';" >Registrar</button>
                 </c-input-group>
 
               </div>
@@ -82,3 +82,16 @@
   </c-card-body>
 
 </c-card>
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast
+    (timer)="onTimerChange($event)"
+    (visibleChange)="onVisibleChange($event)"
+    [visible]="visible">
+    <c-toast-header>
+      HayIot
+    </c-toast-header>
+    <c-toast-body>
+      <p>{{cText}}</p>
+    </c-toast-body>
+  </c-toast>
+</c-toaster>
