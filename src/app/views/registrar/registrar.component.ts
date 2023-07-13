@@ -65,13 +65,13 @@ export class RegistrarComponent {
   fetchSites(){
     let query = 'getSites'
     this.api.getQuery(query).subscribe((response: any) => {
-      this.siteList=response
+      this.siteList=response.data
     });
   }
   fetchEquips(){
     let query = 'getEquips'
     this.api.getQuery(query).subscribe((response: any) => {
-      this.equipList=response
+      this.equipList=response.data
 
     });
   }

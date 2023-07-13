@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { IconSetService } from '@coreui/icons-angular';
-import { cilListNumbered, cilPaperPlane, brandSet, cilSearch } from '@coreui/icons';
+import {cilListNumbered, cilPaperPlane, brandSet, cilSearch, cilCheck, cilX, cilBrush} from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import {ApiConectionService} from "../../services/api/api-conection.service";
 import * as moment from "moment";
@@ -29,12 +29,22 @@ export class DashboardComponent implements OnInit {
   position = 'top-end';
   visible = false;
   percentage = 0;
+  enableEdit = false;
+  etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
+  enableEditIndex = null;
+  editedData : any ;
   click = false;
+  equipList : any;
   spinner =false;
   csvData: any;
+  siteList : any;
+  editable = true;
+  validator = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
-    iconSet.icons = { cilListNumbered, cilPaperPlane, cilSearch, ...brandSet };
+    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, ...brandSet };
+    this.fetchSites()
+    this.fetchEquips()
   }
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -153,7 +163,7 @@ export class DashboardComponent implements OnInit {
   }
   fetchSensors(val: any, option: any, index: any){
     let query
-    if (option == 'ID') query = 'getSensors?id='.concat(val+'&max=10&index=0')
+    if (option == 'ID') query = 'getSensors?id='.concat(val+'&max=10&index='.concat(index))
     else query = 'getSensors?name='.concat(val+'&max=10&index='.concat(index))
     this.api.getQuery(query).subscribe((response: any) => {
       if(response['data'].length>0){
@@ -213,7 +223,6 @@ export class DashboardComponent implements OnInit {
           pointBorderColort: color})
       }
       this.sensorData = {datasets: temp5, labels:temp2}
-      console.log(this.sensorData)
       this.click = false
       this.spinner=false
     });
@@ -232,12 +241,6 @@ export class DashboardComponent implements OnInit {
     });
     this.selected=item
   }
-  setTrafficPeriod(value: string): void {
-    this.trafficRadioGroup.setValue({ trafficRadio: value });
-    this.chartsData.initMainChart(value);
-    this.initCharts();
-  }
-
   download(){
     this.downloadFile(this.csvData, 'hayIot');
   }
@@ -280,23 +283,55 @@ export class DashboardComponent implements OnInit {
     }
     return str;
   }
-  getRandomColor(){
-    // Define los valores mínimos y máximos para los componentes HSL
-    const minHue = 0;       // Valor mínimo de matiz (0-360)
-    const maxHue = 360;     // Valor máximo de matiz (0-360)
-    const minSaturation = 20;  // Valor mínimo de saturación (0-100)
-    const maxSaturation = 50; // Valor máximo de saturación (0-100)
-    const minLightness = 40;   // Valor mínimo de luminosidad (0-100)
-    const maxLightness = 60;   // Valor máximo de luminosidad (0-100)
+  fetchSites(){
+    let query = 'getSites'
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.siteList=response.data
+    });
+  }
+  fetchEquips(){
+    let query = 'getEquips'
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.equipList=response.data
 
-    // Genera valores aleatorios para los componentes HSL
+    });
+  }
+
+  enableEditMethod( e :any, i:any) {
+    this.enableEdit = true;
+    this.editable= true;
+    this.validator = e;
+    this.enableEditIndex = i;
+    this.editedData= {'site':e.siteref, 'equip':e.equipref, 'type':e.type}
+  }
+  cancelEdit(){
+    this.enableEdit=false;
+    this.editable = false;
+
+  }
+  sendEdit(id: any,desc: any, i :any){
+    let item = {'id': id, "siteRef": this.editedData.site, "equipRef": this.editedData.equip,
+      "description": desc, "type": this.editedData.type}
+    this.api.putQuery("editDataSensor/", item).subscribe((response: any) => {
+      console.log(response)
+    });
+    this.data['data'][i]={'id':id,'siteref':this.editedData.site,'equipref':this.editedData.equip,
+      'type':this.editedData.type,'description':desc,'lastSensed':''}
+    this.enableEdit=false;
+    this.editable = false;
+  }
+
+  getRandomColor(){
+    const minHue = 0;
+    const maxHue = 360;
+    const minSaturation = 20;
+    const maxSaturation = 50;
+    const minLightness = 40;
+    const maxLightness = 60;
     const hue = Math.floor(Math.random() * (maxHue - minHue + 1)) + minHue;
     const saturation = Math.floor(Math.random() * (maxSaturation - minSaturation + 1)) + minSaturation;
     const lightness = Math.floor(Math.random() * (maxLightness - minLightness + 1)) + minLightness;
-
-    // Crea la cadena de color en formato HSL
     const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-
     return color;
   }
 

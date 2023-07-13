@@ -28,7 +28,7 @@ import {
   GridModule,
   HeaderModule,
   ListGroupModule,
-  NavModule,
+  NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
   ProgressModule,
   SharedModule,
   SidebarModule,
@@ -96,7 +96,10 @@ const APP_CONTAINERS = [
     ToastComponent,
     ToastHeaderComponent,
     ToastBodyComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PaginationComponent,
+    PageItemDirective,
+    PageLinkDirective
   ],
   providers: [
     {

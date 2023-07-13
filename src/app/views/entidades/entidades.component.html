@@ -18,11 +18,16 @@
           </thead>
           <tbody >
         <tr *ngFor="let d of data_site['data'];">
-            <td>{{d.id}}</td>
-            <td>{{d.site}}</td>
-          </tr> 
+            <td class="col-6">{{d.id}}</td>
+            <td class="col-6">{{d.site}}</td>
+          </tr>
           </tbody>
         </table>
+        <c-pagination *ngIf="! (data_site['indexs'].length== 1)" style="justify-content: center" aria-label="Page navigation example">
+          <li cPageItem  *ngFor="let n of data_site['indexs']" (click)="fetchSites(n)" >
+            <a cPageLink >{{n+1}}</a>
+          </li>
+        </c-pagination>
       </c-row>
 
 
@@ -31,19 +36,24 @@
         <table class="table table-striped">
           <thead>
           <tr class="table-dark">
-            <th scope="col">Sitio</th>
             <th scope="col">Identificador</th>
-            <th scope="col">Equipo</th>
+            <th scope="col">Sitio</th>
+            <th scope="col">Descripcion</th>
           </tr>
           </thead>
           <tbody >
         <tr *ngFor="let d of data_equip['data'];">
-            <td>{{d.id}}</td>
-            <td>{{d.siteRef}}</td>
-            <td>{{d.equip}}</td>
-          </tr> 
+            <td class="col-5">{{d.id}}</td>
+            <td class="col-2">{{d.siteref}}</td>
+            <td class="col-5">{{d.equip}}</td>
+          </tr>
           </tbody>
         </table>
+        <c-pagination *ngIf="! (data_equip['indexs'].length== 1)" style="justify-content: center" aria-label="Page navigation example">
+          <li cPageItem  *ngFor="let n of data_equip['indexs']" (click)="fetchEquips(n)" >
+            <a cPageLink >{{n+1}}</a>
+          </li>
+        </c-pagination>
       </c-row>
 
 
@@ -61,14 +71,19 @@
           </thead>
           <tbody >
         <tr *ngFor="let d of data_sensor['data'];">
-            <td>{{d.id}}</td>
-            <td>{{d.siteref}}</td>
-            <td>{{d.equipref}}</td>
-            <td>{{d.type}}</td>
-            <td>{{d.description}}</td>
-          </tr> 
+            <td class="col-4">{{d.id}}</td>
+            <td class="col-2">{{d.siteref}}</td>
+            <td class="col-2">{{d.equipref}}</td>
+            <td class="col-2">{{d.type}}</td>
+            <td class="col-2">{{d.description}}</td>
+          </tr>
           </tbody>
         </table>
+        <c-pagination *ngIf="! (data_sensor['indexs'].length == 1)" style="justify-content: center" aria-label="Page navigation example">
+          <li cPageItem  *ngFor="let n of data_sensor['indexs']" (click)="fetchSensors(n)" >
+            <a  cPageLink>{{n+1}}</a>
+          </li>
+        </c-pagination>
       </c-row>
       <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
     </c-card-body>
