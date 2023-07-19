@@ -9,10 +9,10 @@
 
     <c-input-group class="mb-3">
       <span cInputGroupText><svg cIcon name="cilSearch" size="m" title="Numbered List Icon"></svg></span>
-      <input #val (keyup.enter)="fetchSensors(val.value,option.value,0)"  aria-label="Text input with dropdown button" placeholder="Ingrese el Id o Nombre del sensor" cFormControl/>
+      <input #val (keyup.enter)="fetchSensors(val.value,option.value,0)"  aria-label="Text input with dropdown button" placeholder="Ingrese el Nombre o busque por Id del sensor" cFormControl/>
       <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.2">
-        <option value="ID">ID</option>
         <option value="NAME">Nombre</option>
+        <option value="ID">ID</option>
       </select>
       <button type="button" (click)="fetchSensors(val.value, option.value, 0)" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
     </c-input-group>
@@ -107,20 +107,30 @@
     <c-row *ngIf="selected.id != ''" class="mb-3" style="justify-content: center; align-content: center">
       <c-col sm="6">
         <c-input-group class="mb-3">
-          <span cInputGroupText id="basic-addon3">Ingrese el rango de fechas
+          <span cInputGroupText id="basic-addon3">Seleccione el rango de fechas
             <mat-date-range-input [formGroup]="range" [rangePicker]="picker" style="width: 0px; display: flex">
             <input cFormControl matStartDate formControlName="start" placeholder="" hidden>
             <input cFormControl matEndDate formControlName="end" placeholder="" hidden>
             <mat-date-range-picker #picker></mat-date-range-picker>
           </mat-date-range-input></span>
-          <input aria-describedby="basic-addon1" cFormControl placeholder="Fecha" [value]=getDates()>
+          <input [disabled]="true"  aria-describedby="basic-addon1" cFormControl placeholder="Fecha" [value]=getDates() style="background-color: white">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         </c-input-group>
+
       </c-col>
-      <c-col sm="6">
+      <c-col sm="1">
         <button [disabled]="click"  (click)="fetchData(); click=true" type="button" class="btn btn-primary">
           <span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
+      </c-col>
+      <c-col sm="3">
         <button *ngIf="sensorData['datasets'].length >1" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
+      </c-col>
+      <c-col sm="2">
+        <select aria-label="Default select example"  cSelect sizing="s" style="flex: 0.4;
+        border: transparent;" [(ngModel)]="typeDate">
+          <option value="UTC">UTC</option>
+          <option value="Local">Local</option>
+        </select>
       </c-col>
     </c-row>
     <label cLabel>Referencia API</label>
@@ -134,6 +144,7 @@
         Copiar
       </button>
     </c-input-group>
+
     <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
 
     <c-chart *ngIf="!click && sensorData['datasets'].length >1"

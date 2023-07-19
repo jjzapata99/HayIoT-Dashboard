@@ -144,7 +144,6 @@ export class DashboardChartsData {
         },
         y: {
           stacked: true
-
         }
       },
       elements: {

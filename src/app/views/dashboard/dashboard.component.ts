@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   position = 'top-end';
   visible = false;
   percentage = 0;
+  typeDate = 'UTC';
   enableEdit = false;
   etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
   enableEditIndex = null;
@@ -185,12 +186,19 @@ export class DashboardComponent implements OnInit {
     if (init.isValid() && end.isValid()){
       return init.format("DD/MM/YYYY") + ' - ' + end.format("DD/MM/YYYY");
     }
-    return " - "
+    return " "
 
   }
   fetchData(){
-    let init = moment(this.range.value.start).format("DD/MM/YYYY")
-    let end = moment(this.range.value.end).format("DD/MM/YYYY")
+    let init =''
+    let end = ''
+    if(this.typeDate == 'UTC'){
+      init = moment(this.range.value.start).format("DD/MM/YYYY")
+      end = moment(this.range.value.end).format("DD/MM/YYYY")
+    }else{
+      init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
+      end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
+    }
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.spinner= true
     this.api.getQuery(query).subscribe((response: any) => {
@@ -222,13 +230,16 @@ export class DashboardComponent implements OnInit {
         temp5.push({data: temp3, label: i, borderColor:color,
           backgroundColor : color,
           pointBackgroundColor: color,
+          display: false,
           pointBorderColort: color})
       }
       this.sensorData = {datasets: temp5, labels:temp2}
       this.click = false
       this.spinner=false
     });
-    this.queryExample = query
+    this.queryExample = 'getData?id='.concat(this.selected.id+
+      '&start='.concat(moment(this.range.value.start).format("DD/MM/YYYY")+
+        '&end='.concat(moment(this.range.value.end).format("DD/MM/YYYY"))))
   }
   selectItem(item:any){
     this.api.getQuery("getLastSensed?id=".concat(item.id)).subscribe((response: any) => {
