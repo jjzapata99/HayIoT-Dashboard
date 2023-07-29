@@ -14,12 +14,23 @@
           <tr class="table-dark">
             <th scope="col">Id</th>
             <th scope="col">Description</th>
+            <th scope="col"> <a style="color: white" class="table-row-action edit-action" *ngIf="!enableEditS" (click)="editSites()">
+            <svg [cIcon]="icons.cilBrush"></svg>
+            </a>
+              <a style="color: white" class="table-row-action edit-action" *ngIf="enableEditS" (click)="enableEditS=!enableEditS">
+                <svg [cIcon]="icons.cilX"></svg>
+              </a></th>
           </tr>
           </thead>
           <tbody >
-        <tr *ngFor="let d of data_site['data'];">
-            <td class="col-6">{{d.id}}</td>
+        <tr *ngFor="let d of data_site['data']; let i = index">
+            <td class="col-5">{{d.id}}</td>
             <td class="col-6">{{d.site}}</td>
+            <td class="col-1">
+              <a style="color: #444444" class="table-row-action edit-action" *ngIf="enableEditS" (click)="deleteS(d, i)">
+                <svg [cIcon]="icons.cilXCircle"></svg>
+              </a>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -39,13 +50,24 @@
             <th scope="col">Identificador</th>
             <th scope="col">Sitio</th>
             <th scope="col">Descripcion</th>
+            <th scope="col"> <a style="color: white" class="table-row-action edit-action" *ngIf="!enableEditE" (click)="editEquips()">
+              <svg [cIcon]="icons.cilBrush"></svg>
+            </a>
+              <a style="color: white" class="table-row-action edit-action" *ngIf="enableEditE" (click)="enableEditE=!enableEditE">
+                <svg [cIcon]="icons.cilX"></svg>
+              </a></th>
           </tr>
           </thead>
           <tbody >
-        <tr *ngFor="let d of data_equip['data'];">
-            <td class="col-5">{{d.id}}</td>
+        <tr *ngFor="let d of data_equip['data']; let i = index;">
+            <td class="col-4">{{d.id}}</td>
             <td class="col-2">{{d.siteref}}</td>
             <td class="col-5">{{d.equip}}</td>
+          <td class="col-1">
+            <a style="color: #444444" class="table-row-action edit-action" *ngIf="enableEditE" (click)="deleteE(d, i)">
+              <svg [cIcon]="icons.cilXCircle"></svg>
+            </a>
+          </td>
           </tr>
           </tbody>
         </table>
@@ -67,15 +89,26 @@
             <th scope="col">Equipo</th>
             <th scope="col">Tipo</th>
             <th scope="col">Descripción</th>
+            <th scope="col"> <a style="color: white" class="table-row-action edit-action" *ngIf="!enableEditSr" (click)="editSensors()">
+              <svg [cIcon]="icons.cilBrush"></svg>
+            </a>
+              <a style="color: white" class="table-row-action edit-action" *ngIf="enableEditSr" (click)="enableEditSr=!enableEditSr">
+                <svg [cIcon]="icons.cilX"></svg>
+              </a></th>
           </tr>
           </thead>
           <tbody >
-        <tr *ngFor="let d of data_sensor['data'];">
+        <tr *ngFor="let d of data_sensor['data']; let i =index;">
             <td class="col-4">{{d.id}}</td>
-            <td class="col-2">{{d.siteref}}</td>
+            <td class="col-1">{{d.siteref}}</td>
             <td class="col-2">{{d.equipref}}</td>
             <td class="col-2">{{d.type}}</td>
             <td class="col-2">{{d.description}}</td>
+            <td class="col-1">
+              <a style="color: #444444" class="table-row-action edit-action" *ngIf="enableEditSr" (click)="deleteSr(d, i)">
+                <svg [cIcon]="icons.cilXCircle"></svg>
+              </a>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -88,3 +121,30 @@
       <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
     </c-card-body>
   </c-card>
+<c-modal id="liveDemoModal" [visible]="visiblePop" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Verificación</h5>
+    <button (click)="popWindow()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>Por favor ingrese el código de verificación.</c-modal-body>
+  <c-modal-body>Ingrese código: <input #pass (keyup.enter)="validate(pass.value); pass.value=''" type="password"></c-modal-body>
+  <c-modal-footer>
+    <button (click)="popWindow()" cButton color="secondary">
+      Cancelar
+    </button>
+    <button cButton (click)="validate(pass.value); pass.value=''" color="primary">Confirmar</button>
+  </c-modal-footer>
+</c-modal>
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast
+    (timer)="onTimerChange($event)"
+    (visibleChange)="onVisibleChange($event)"
+    [visible]="visible">
+    <c-toast-header>
+      HayIot
+    </c-toast-header>
+    <c-toast-body>
+      <p>{{cText}}</p>
+    </c-toast-body>
+  </c-toast>
+</c-toaster>

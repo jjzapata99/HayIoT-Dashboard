@@ -29,8 +29,9 @@ export class DashboardComponent implements OnInit {
   position = 'top-end';
   visible = false;
   percentage = 0;
-  typeDate = 'UTC';
+  typeDate = 'Local';
   enableEdit = false;
+  id_sensor : any ;
   etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
   enableEditIndex = null;
   editedData : any ;
@@ -202,40 +203,45 @@ export class DashboardComponent implements OnInit {
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.spinner= true
     this.api.getQuery(query).subscribe((response: any) => {
-      this.csvData = response
-      let temp : any[] = []
-      let temp2 : any[] = []
-      let temp3 : any[] = []
-      let temp4 : any
-      let temp5: any[] = []
-      let time = ''
-      for (let i of this.csvData){
-        time = new Date(i.sensedAt + 'Z').toLocaleString()
-        if(!temp.includes(i.type)){
-          temp.push(i.type)
-        }
-        if(!temp2.includes(time)){
-          temp2.push(time)
-        }
-      }
-      for(let i of temp){
-        temp3 = []
-        temp4 = response[0].sensedAt
-        for(let x of this.csvData){
-          if(i == x.type){
-            temp3.push(x.data)
+      if(response!= null) {
+        this.csvData = response
+        this.id_sensor = this.selected
+        let temp: any[] = []
+        let temp2: any[] = []
+        let temp3: any[] = []
+        let temp4: any
+        let temp5: any[] = []
+        let time = ''
+        for (let i of this.csvData) {
+          time = new Date(i.sensedAt + 'Z').toLocaleString()
+          if (!temp.includes(i.type)) {
+            temp.push(i.type)
+          }
+          if (!temp2.includes(time)) {
+            temp2.push(time)
           }
         }
-        let color = this.getRandomColor()
-        temp5.push({data: temp3, label: i, borderColor:color,
-          backgroundColor : color,
-          pointBackgroundColor: color,
-          display: false,
-          pointBorderColort: color})
+        for (let i of temp) {
+          temp3 = []
+          temp4 = response[0].sensedAt
+          for (let x of this.csvData) {
+            if (i == x.type) {
+              temp3.push(x.data)
+            }
+          }
+          let color = this.getRandomColor()
+          temp5.push({
+            data: temp3, label: i, borderColor: color,
+            backgroundColor: color,
+            pointBackgroundColor: color,
+            display: false,
+            pointBorderColort: color
+          })
+        }
+        this.sensorData = {datasets: temp5, labels: temp2}
       }
-      this.sensorData = {datasets: temp5, labels:temp2}
       this.click = false
-      this.spinner=false
+      this.spinner = false
     });
     this.queryExample = 'getData?id='.concat(this.selected.id+
       '&start='.concat(moment(this.range.value.start).format("DD/MM/YYYY")+
@@ -255,11 +261,11 @@ export class DashboardComponent implements OnInit {
     this.selected=item
   }
   download(){
-    this.downloadFile(this.csvData, 'hayIot');
+    this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
   }
 
   downloadFile(data: any, filename='data') {
-    let csvData = this.convertToCSV(data, ['id_sensor', 'data', 'type', 'sensedAt']);
+    let csvData = this.convertToCSV(data, ['data', 'type', 'sensedAt','id_sensor']);
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -289,9 +295,9 @@ export class DashboardComponent implements OnInit {
       let line = (i+1)+'';
       for (let index in headerList) {
         let head = headerList[index];
-
         line += ',' + array[i][head];
       }
+      line += ',' + this.id_sensor.id;
       str += line + '\r\n';
     }
     return str;

@@ -119,17 +119,17 @@
 
       </c-col>
       <c-col sm="1">
-        <button [disabled]="click"  (click)="fetchData(); click=true" type="button" class="btn btn-primary">
+        <button [disabled]="click" (click)="fetchData(); click=true" type="button" class="btn btn-primary">
           <span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
       </c-col>
       <c-col sm="3">
-        <button *ngIf="sensorData['datasets'].length >1" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
+        <button *ngIf="sensorData['datasets'].length >1" style="margin-left: 10px;" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
       </c-col>
       <c-col sm="2">
         <select aria-label="Default select example"  cSelect sizing="s" style="flex: 0.4;
         border: transparent;" [(ngModel)]="typeDate">
-          <option value="UTC">UTC</option>
           <option value="Local">Local</option>
+          <option value="UTC">UTC</option>
         </select>
       </c-col>
     </c-row>

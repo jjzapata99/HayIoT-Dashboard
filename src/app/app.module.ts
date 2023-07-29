@@ -27,7 +27,7 @@ import {
   FormModule,
   GridModule,
   HeaderModule,
-  ListGroupModule,
+  ListGroupModule, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent,
   NavModule, PageItemDirective, PageLinkDirective, PaginationComponent,
   ProgressModule,
   SharedModule,
@@ -46,6 +46,7 @@ import {MatInputModule} from "@angular/material/input";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
+import {cilBrush, cilCheck, cilList, cilShieldAlt, cilX} from "@coreui/icons";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -99,7 +100,11 @@ const APP_CONTAINERS = [
     SpinnerComponent,
     PaginationComponent,
     PageItemDirective,
-    PageLinkDirective
+    PageLinkDirective,
+    ModalComponent,
+    ModalFooterComponent,
+    ModalBodyComponent,
+    ModalHeaderComponent
   ],
   providers: [
     {
@@ -112,4 +117,5 @@ const APP_CONTAINERS = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  icons = { cilList, cilShieldAlt, cilCheck, cilX, cilBrush};
 }
