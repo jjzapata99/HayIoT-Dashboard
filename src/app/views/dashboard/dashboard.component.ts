@@ -200,11 +200,10 @@ export class DashboardComponent implements OnInit {
       init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
       end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
     }
-    let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
+    let query = 'getDataWeb?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
     this.spinner= true
     this.api.getQuery(query).subscribe((response: any) => {
       if(response!= null) {
-        this.csvData = response
         this.id_sensor = this.selected
         let temp: any[] = []
         let temp2: any[] = []
@@ -212,7 +211,7 @@ export class DashboardComponent implements OnInit {
         let temp4: any
         let temp5: any[] = []
         let time = ''
-        for (let i of this.csvData) {
+        for (let i of response) {
           time = new Date(i.sensedAt + 'Z').toLocaleString()
           if (!temp.includes(i.type)) {
             temp.push(i.type)
@@ -224,7 +223,7 @@ export class DashboardComponent implements OnInit {
         for (let i of temp) {
           temp3 = []
           temp4 = response[0].sensedAt
-          for (let x of this.csvData) {
+          for (let x of response) {
             if (i == x.type) {
               temp3.push(x.data)
             }
@@ -261,11 +260,25 @@ export class DashboardComponent implements OnInit {
     this.selected=item
   }
   download(){
-    this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
+    let init =''
+    let end = ''
+    if(this.typeDate == 'UTC'){
+      init = moment(this.range.value.start).format("DD/MM/YYYY")
+      end = moment(this.range.value.end).format("DD/MM/YYYY")
+    }else{
+      init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
+      end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
+    }
+    let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
+    this.spinner= true
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.csvData = response
+      this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
+    })
   }
 
   downloadFile(data: any, filename='data') {
-    let csvData = this.convertToCSV(data, ['data', 'type', 'sensedAt','id_sensor']);
+    let csvData = this.convertToCSV(data, ['data', 'type', 'sensedAt']);
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -279,6 +292,7 @@ export class DashboardComponent implements OnInit {
     document.body.appendChild(dwldLink);
     dwldLink.click();
     document.body.removeChild(dwldLink);
+    this.spinner = false
   }
 
   convertToCSV(objArray:any, headerList:any) {
@@ -289,7 +303,7 @@ export class DashboardComponent implements OnInit {
     for (let index in headerList) {
       row += headerList[index] + ',';
     }
-    row = row.slice(0, -1);
+    row+= 'id_sensor'
     str += row + '\r\n';
     for (let i = 0; i < array.length; i++) {
       let line = (i+1)+'';
