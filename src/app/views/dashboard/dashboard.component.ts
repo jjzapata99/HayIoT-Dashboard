@@ -24,7 +24,7 @@ import * as moment from "moment";
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  downloadBt = false
   hostURL = "http://200.126.14.233:8000/"
   position = 'top-end';
   visible = false;
@@ -260,6 +260,9 @@ export class DashboardComponent implements OnInit {
     this.selected=item
   }
   download(){
+    this.cText='La descarga podría demorar unos minutos.';
+    this.visible = !this.visible;
+    this.downloadBt = true
     let init =''
     let end = ''
     if(this.typeDate == 'UTC'){
@@ -274,6 +277,7 @@ export class DashboardComponent implements OnInit {
     this.api.getQuery(query).subscribe((response: any) => {
       this.csvData = response
       this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
+      this.downloadBt = false
     })
   }
 

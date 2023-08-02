@@ -123,7 +123,7 @@
           <span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
       </c-col>
       <c-col sm="3">
-        <button *ngIf="sensorData['datasets'].length >1" style="margin-left: 10px;" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
+        <button [disabled]="downloadBt" *ngIf="sensorData['datasets'].length >1" style="margin-left: 10px;" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
       </c-col>
       <c-col sm="2">
         <select aria-label="Default select example"  cSelect sizing="s" style="flex: 0.4;
