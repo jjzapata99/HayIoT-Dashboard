@@ -147,7 +147,7 @@
 
     <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
 
-    <c-chart *ngIf="!click && sensorData['datasets'].length >1"
+    <c-chart *ngIf="!click && sensorData['datasets'].length >0"
       [data]= sensorData
       [height]="300"
       [options]="mainChart.options"
