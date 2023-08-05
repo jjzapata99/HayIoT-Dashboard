@@ -172,7 +172,7 @@ export class DashboardComponent implements OnInit {
     this.api.getQuery(query).subscribe((response: any) => {
       if(response['data'].length>0){
         this.data= response
-        this.sensorData = {datasets:[{data:[0],label:''}], labels:['']}
+
       }
       else {
         this.selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
