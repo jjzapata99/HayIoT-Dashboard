@@ -137,7 +137,12 @@ export class DashboardChartsData {
     const options = {
       maintainAspectRatio: false,
       scales: {
+        xAxes :[{
+          type : 'time',
+          distribution: 'linear',
+        }],
         x: {
+
           grid: {
             drawOnChartArea: false
           }

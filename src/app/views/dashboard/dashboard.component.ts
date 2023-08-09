@@ -206,38 +206,32 @@ export class DashboardComponent implements OnInit {
       if(response!= null) {
         this.id_sensor = this.selected
         let temp: any[] = []
-        let temp2: any[] = []
         let temp3: any[] = []
-        let temp4: any
         let temp5: any[] = []
-        let time = ''
         for (let i of response) {
-          time = new Date(i.sensedAt + 'Z').toLocaleString()
           if (!temp.includes(i.type)) {
             temp.push(i.type)
-          }
-          if (!temp2.includes(time)) {
-            temp2.push(time)
           }
         }
         for (let i of temp) {
           temp3 = []
-          temp4 = response[0].sensedAt
           for (let x of response) {
             if (i == x.type) {
-              temp3.push(x.data)
+              temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
             }
           }
           let color = this.getRandomColor()
           temp5.push({
-            data: temp3, label: i, borderColor: color,
+            data: temp3,
+            label: i,
+            borderColor: color,
             backgroundColor: color,
             pointBackgroundColor: color,
             display: false,
             pointBorderColort: color
           })
         }
-        this.sensorData = {datasets: temp5, labels: temp2}
+        this.sensorData = {datasets: temp5, labels: []}
       }
       this.click = false
       this.spinner = false
