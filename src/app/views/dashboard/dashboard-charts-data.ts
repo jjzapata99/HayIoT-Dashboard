@@ -135,7 +135,9 @@ export class DashboardChartsData {
     };
 
     const options = {
-      maintainAspectRatio: false,
+      responsive: true,
+      stacked: false,
+      maintainAspectRatio: true,
       scales: {
         xAxes :[{
           type : 'time',
@@ -148,7 +150,9 @@ export class DashboardChartsData {
           }
         },
         y: {
-          stacked: true
+          type: 'linear',
+          stacked: false,
+
         }
       },
       elements: {
