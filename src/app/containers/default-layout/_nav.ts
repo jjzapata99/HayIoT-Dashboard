@@ -220,7 +220,7 @@ export const navItems: INavData[] = [
       color: 'info',
       text: 'NEW'
     }
-  },*/
+  },
   {
     title: true,
     name: 'Extras'
@@ -251,5 +251,5 @@ export const navItems: INavData[] = [
         url: '/500'
       }
     ]
-  },
+  },*/
 ];

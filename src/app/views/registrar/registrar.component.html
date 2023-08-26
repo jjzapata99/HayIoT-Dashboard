@@ -14,7 +14,7 @@
           name="tipoEntidad"
         >
           <option value="sensor">Sensor</option>
-          <option value="equipo">Equipo</option>
+          <option value="espacio">Espacio</option>
           <option value="sitio">Sitio</option>
         </select>
       </c-input-group>
@@ -29,7 +29,7 @@
                       <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>
                     </select>
                     <select #equip>
-                      <option selected> Equipo </option>
+                      <option selected> Espacio </option>
                       <option *ngFor="let i of equipList" value="{{i.id}}">{{i.id}}</option>
                     </select>
                   <input #description aria-label="Text input with dropdown  button"
@@ -44,11 +44,11 @@
                   </c-row>
                   <button cButton
                     type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value);
-                    site.value='Sitio'; equip.value='Equipo'; description.value=''; option.value='Tipo';" >Registrar</button>
+                    site.value='Sitio'; equip.value='Espacio'; description.value=''; option.value='Tipo';" >Registrar</button>
                 </c-input-group>
 
               </div>
-              <div *ngIf="tipoEntidad === 'equipo'">
+              <div *ngIf="tipoEntidad === 'espacio'">
                 <c-input-group class="mb-3" style="justify-content: center">
                   <c-row class="px-4 py-2">
                     <select #site>
@@ -58,7 +58,7 @@
                     </select>
                   <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
 
-                  <input #equip aria-label="Text input with dropdown button" placeholder="Equipo" cFormControl>
+                  <input #equip aria-label="Text input with dropdown button" placeholder="Espacio" cFormControl>
                   </c-row>
                   <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value);
                   id.value='';
