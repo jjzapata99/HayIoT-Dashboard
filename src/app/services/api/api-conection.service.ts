@@ -5,7 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiConectionService {
-  url = 'https://200.126.14.233:9000/';
+  url = 'https://200.126.14.233:8000/';
   constructor(private http:HttpClient) { }
   getQuery(dire : string): any {
     return this.http.get(this.url+dire)
