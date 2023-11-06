@@ -25,7 +25,7 @@ import * as moment from "moment";
 })
 export class DashboardComponent implements OnInit {
   downloadBt = false
-  hostURL = "http://200.126.14.233:8000/"
+  hostURL = "https://aias.espol.edu.ec/api/hayiot/"
   position = 'top-end';
   visible = false;
   percentage = 0;
