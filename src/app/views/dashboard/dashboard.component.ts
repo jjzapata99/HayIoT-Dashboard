@@ -43,6 +43,8 @@ export class DashboardComponent implements OnInit {
   editable = true;
   cText = '';
   validator = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
+  tagsList: any [] = [new Object({'id':0, 'tag':'Todas','selected': false})];
+  tagsSelected: any[] =[]
   sensorData: any = {datasets: [], labels: []};
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, ...brandSet };
@@ -57,6 +59,9 @@ export class DashboardComponent implements OnInit {
   lastDate: any= ''
   selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   data = {'data':[this.selected], 'indexs':[]}
+  selecCheck(event:any){
+    this.tagsList[this.tagsList.findIndex( i => i.id == event.target.id)]['selected']= !this.tagsList[this.tagsList.findIndex( i => i.id == event.target.id)]['selected'];
+  }
   /*public users: IUser[] = [
     {
       name: 'Yiorgos Avraamu',
@@ -172,7 +177,6 @@ export class DashboardComponent implements OnInit {
     this.api.getQuery(query).subscribe((response: any) => {
       if(response['data'].length>0){
         this.data= response
-
       }
       else {
         this.selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
@@ -193,6 +197,12 @@ export class DashboardComponent implements OnInit {
   fetchData(){
     let init =''
     let end = ''
+    let tags : string[] = [];
+    for(let i of this.tagsList){
+      if(i['selected'] == true){
+        tags.push(i['tag'])
+      }
+    }
     if(this.typeDate == 'UTC'){
       init = moment(this.range.value.start).format("DD/MM/YYYY")
       end = moment(this.range.value.end).format("DD/MM/YYYY")
@@ -200,9 +210,10 @@ export class DashboardComponent implements OnInit {
       init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
       end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
     }
-    let query = 'getDataWeb?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
+    let query = 'getDataWeb'
+    let obj = {'id':this.selected.id, "start": init, "end": end, "tags": tags}
     this.spinner= true
-    this.api.getQuery(query).subscribe((response: any) => {
+    this.api.putQuery(query, obj).subscribe((response: any) => {
       if(response!= null) {
         this.id_sensor = this.selected
         let temp: any[] = []
@@ -244,6 +255,10 @@ export class DashboardComponent implements OnInit {
     this.api.getQuery("getLastSensed?id=".concat(item.id)).subscribe((response: any) => {
       if(response['lastSensed']!= 'Nan') {
         this.lastDate = new Date(response['lastSensed'] + 'Z').toLocaleString()
+        this.tagsList = response['tags'].map( (x: any) => {
+          return new Object({'id':x['id'], 'tag':x['tag'],'selected': false});
+
+        })
         this.click=false
       }
       else {

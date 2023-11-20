@@ -1,0 +1,12 @@
+<c-input-group style="display:flex; flex-direction: row">
+
+<input
+    type="text"
+    [placeholder]="placeholder"
+    name="searchInput"
+    aria-label="Text input with dropdown  button"
+    [formControl]="searchInput" cFormControl
+  />
+  <span cInputGroupText><svg [cIcon]="icons.cilSearch"></svg></span>
+
+</c-input-group>

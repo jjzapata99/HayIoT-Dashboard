@@ -103,6 +103,15 @@
       </tr>
       </tbody>
     </table>
+    <label *ngIf="!click" cLabel for="traffic" >Tags disponibles para el Sensor:</label>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center" *ngIf="!click">
+      <c-form-check style="padding-inline: 15px"  *ngFor="let tag of tagsList;index as i">
+        <input cFormCheckInput id="{{tag.id}}" type="checkbox" [checked]=tag.selected (change)="selecCheck($event)" />
+        <label cFormCheckLabel for="{{tag.id}}">{{tag.tag}}</label>
+      </c-form-check>
+
+    </div>
+
   </c-row>
     <c-row *ngIf="selected.id != ''" class="mb-3" style="justify-content: center; align-content: center">
       <c-col sm="6">

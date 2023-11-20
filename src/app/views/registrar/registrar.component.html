@@ -24,27 +24,36 @@
               <div *ngIf="tipoEntidad === 'sensor'">
                 <c-input-group class="mb-3" style="justify-content: center; ">
                   <c-row class="px-4 py-1">
-                    <select #site>
-                      <option selected> Sitio </option>
-                      <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>
+<!--                    <select #site>-->
+<!--                      <option selected> Sitio </option>-->
+<!--                      <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>-->
+<!--                    </select>-->
+                    <select #equip cTooltip="Hace referencia al espacio anteriormente creado, vincula el sensor a un Sitio y Espacio"
+                            cTooltipPlacement="right">
+                      <option selected> Equipo </option>
+                      <option *ngFor="let i of equipList; index as a" value="{{a}}">{{i.equip}}</option>
                     </select>
-                    <select #equip>
-                      <option selected> Espacio </option>
-                      <option *ngFor="let i of equipList" value="{{i.id}}">{{i.id}}</option>
-                    </select>
-                  <input #description aria-label="Text input with dropdown  button"
+                  <input #description cTooltip="Nombre con el cual se lo podrá encontrar en el Dashbooard"
+                         cTooltipPlacement="right" aria-label="Text input with dropdown  button"
                          id="equip1" required type="text"
                          placeholder="Descripción" cFormControl/>
-
-                    <select #option aria-label="Default select example" cSelect sizing="s" style="flex: 0.5">
-                    <option selected> Tipo </option>
-                    <option *ngFor="let name of etiquetasDisponibles">{{name}}</option>
-                  </select>
+                    <label style="text-align: start; padding: 7px">Seleccione los tags del Sensor:</label>
+                      <app-search (search)="onSearch($event)"></app-search>
+                    <div class="checkForm">
+                    <c-form-check  *ngFor="let tag of filteredOptions;index as i">
+                      <input cFormCheckInput id="{{tag.id}}" type="checkbox" [checked]=tag.selected (change)="selecCheck($event)" />
+                      <label cFormCheckLabel for="{{tag.id}}">{{tag.tag}}</label>
+                    </c-form-check>
+                    </div>
+<!--                    <select #option aria-label="Default select example" cSelect sizing="s">-->
+<!--                    <option selected> Tipo </option>-->
+<!--                      <option *ngFor="let name of etiquetasDisponibles">{{name}}</option>-->
+<!--                  </select>-->
                   <label *ngIf="idSensor != ''">La id del sensor es: {{idSensor}}</label>
                   </c-row>
                   <button cButton
-                    type="submit" (click)="sendDataSensor(site.value, equip.value, description.value,option.value);
-                    site.value='Sitio'; equip.value='Espacio'; description.value=''; option.value='Tipo';" >Registrar</button>
+                    type="submit" (click)="sendDataSensor(equip.value, description.value);
+                     equip.value='Equipo'; description.value=''; fetchTags()" >Registrar</button>
                 </c-input-group>
 
               </div>
@@ -56,11 +65,13 @@
                       <option *ngFor="let i of siteList" value="{{i.id}}">{{i.id}}</option>
                       <!--<option value="sitio">Sitio</option> !-->
                     </select>
-                  <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
+                  <input #id cTooltip="Ubicación donde se encontrará el equipo, utilizar abreviaturas."
+                         cTooltipPlacement="right" aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
 
-                  <input #equip aria-label="Text input with dropdown button" placeholder="Espacio" cFormControl>
+                  <input #equip cTooltip="Se usará para identificar la ubicación del sensor a la hora de crearlo"
+                         cTooltipPlacement="right" aria-label="Text input with dropdown button" placeholder="Equipo" cFormControl>
                   </c-row>
-                  <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value);
+                  <button type="submit" (click)="sendDataEquip(id.id, site.value, equip.value);
                   id.value='';
                   site.value='Sitio';
                   equip.value='';">Registrar</button>
@@ -69,7 +80,8 @@
                <div *ngIf="tipoEntidad === 'sitio'">
                  <c-input-group class="mb-3" style="justify-content: center">
                    <c-row class="pr-3 px-4 py-4">
-                  <input #id aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
+                  <input #id cTooltip="Ubicación geográfica, utilizar número de edificio."
+                         cTooltipPlacement="right" aria-label="Text input with dropdown button" placeholder="Identificador" cFormControl>
                      <input #description aria-label="Text input with dropdown button" placeholder="Descripción" cFormControl>
                    </c-row>
                    <button type="submit" (click)="sendDataSite(id.value, description.value);

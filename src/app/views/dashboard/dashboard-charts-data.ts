@@ -139,10 +139,7 @@ export class DashboardChartsData {
       stacked: false,
       maintainAspectRatio: true,
       scales: {
-        xAxes :[{
-          type : 'time',
-          distribution: 'linear',
-        }],
+
         x: {
 
           grid: {

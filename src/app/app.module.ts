@@ -33,7 +33,7 @@ import {
   SharedModule,
   SidebarModule,
   SpinnerComponent,
-  TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent,
+  TabsModule, ToastBodyComponent, ToastComponent, ToasterComponent, ToastHeaderComponent, TooltipModule,
   UtilitiesModule
 } from '@coreui/angular';
 
@@ -47,6 +47,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
 import {cilBrush, cilCheck, cilList, cilShieldAlt, cilX} from "@coreui/icons";
+import { SearchComponent } from './views/search/search.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -55,7 +56,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -104,7 +105,8 @@ const APP_CONTAINERS = [
     ModalComponent,
     ModalFooterComponent,
     ModalBodyComponent,
-    ModalHeaderComponent
+    ModalHeaderComponent,
+    TooltipModule
   ],
   providers: [
     {
