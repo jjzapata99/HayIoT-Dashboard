@@ -103,7 +103,7 @@
       </tr>
       </tbody>
     </table>
-    <label *ngIf="!click" cLabel for="traffic" >Tags disponibles para el Sensor:</label>
+    <label *ngIf="!click"  cLabel for="traffic" >Tags disponibles para el Sensor:</label>
     <div style="display: flex; flex-wrap: wrap; justify-content: center" *ngIf="!click">
       <c-form-check style="padding-inline: 15px"  *ngFor="let tag of tagsList;index as i">
         <input cFormCheckInput id="{{tag.id}}" type="checkbox" [checked]=tag.selected (change)="selecCheck($event)" />
@@ -556,3 +556,17 @@
     </c-toast-body>
   </c-toast>
 </c-toaster>
+<c-modal id="liveDemoModal" [visible]="visiblePop" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Verificación</h5>
+    <button (click)="popWindow()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>Por favor ingrese el código de verificación.</c-modal-body>
+  <c-modal-body>Ingrese código: <input #pass (keyup.enter)="validate(pass.value); pass.value=''" type="password"></c-modal-body>
+  <c-modal-footer>
+    <button (click)="popWindow()" cButton color="secondary">
+      Cancelar
+    </button>
+    <button cButton (click)="validate(pass.value); pass.value=''" color="primary">Confirmar</button>
+  </c-modal-footer>
+</c-modal>

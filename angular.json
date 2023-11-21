@@ -42,7 +42,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "chart.js"
+              "chart.js",
+              "moment"
             ]
           },
           "configurations": {

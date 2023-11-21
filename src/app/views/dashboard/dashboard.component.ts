@@ -42,10 +42,14 @@ export class DashboardComponent implements OnInit {
   siteList : any;
   editable = true;
   cText = '';
+  tempE : any;
+  tempI : any;
+  validation= false;
   validator = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   tagsList: any [] = [new Object({'id':0, 'tag':'Todas','selected': false})];
   tagsSelected: any[] =[]
   sensorData: any = {datasets: [], labels: []};
+  public visiblePop = false;
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, ...brandSet };
     this.fetchSites()
@@ -59,6 +63,22 @@ export class DashboardComponent implements OnInit {
   lastDate: any= ''
   selected = {'id':'','siteref':'','equipref':'','type':'','description':'','lastSensed':''}
   data = {'data':[this.selected], 'indexs':[]}
+  handleLiveDemoChange(event: any) {
+    this.visiblePop = event;
+  }
+  popWindow() {
+    this.visiblePop = !this.visiblePop;
+  }
+  validate(pass: any){
+    if(pass == 'root1234'){
+      this.enableEdit = true
+      this.editable = true;
+      this.validator = this.tempE;
+      this.enableEditIndex = this.tempI;
+      this.editedData = {'site': this.tempE.sfiteref, 'equip': this.tempE.equipref, 'type': this.tempE.type}
+    }
+    this.popWindow()
+  }
   selecCheck(event:any){
     this.tagsList[this.tagsList.findIndex( i => i.id == event.target.id)]['selected']= !this.tagsList[this.tagsList.findIndex( i => i.id == event.target.id)]['selected'];
   }
@@ -344,11 +364,9 @@ export class DashboardComponent implements OnInit {
   }
 
   enableEditMethod( e :any, i:any) {
-    this.enableEdit = true;
-    this.editable= true;
-    this.validator = e;
-    this.enableEditIndex = i;
-    this.editedData= {'site':e.siteref, 'equip':e.equipref, 'type':e.type}
+    this.popWindow()
+    this.tempE =e
+    this.tempI = i
   }
   cancelEdit(){
     this.enableEdit=false;
