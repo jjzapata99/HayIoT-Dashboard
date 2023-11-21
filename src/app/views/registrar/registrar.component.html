@@ -71,7 +71,7 @@
                   <input #equip cTooltip="Se usará para identificar la ubicación del sensor a la hora de crearlo"
                          cTooltipPlacement="right" aria-label="Text input with dropdown button" placeholder="Equipo" cFormControl>
                   </c-row>
-                  <button type="submit" (click)="sendDataEquip(id.id, site.value, equip.value);
+                  <button type="submit" (click)="sendDataEquip(id.value, site.value, equip.value);
                   id.value='';
                   site.value='Sitio';
                   equip.value='';">Registrar</button>
