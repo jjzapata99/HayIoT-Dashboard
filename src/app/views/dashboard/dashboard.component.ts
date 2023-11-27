@@ -298,7 +298,7 @@ export class DashboardComponent implements OnInit {
       init = moment(this.range.value.start).format("DD/MM/YYYY")
       end = moment(this.range.value.end).format("DD/MM/YYYY")
     }else{
-      init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
+        init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
       end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
     }
     let query = 'getData?id='.concat(this.selected.id+'&start='.concat(init+'&end='.concat(end)))
