@@ -48,6 +48,7 @@ import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
 import {cilBrush, cilCheck, cilList, cilShieldAlt, cilX} from "@coreui/icons";
 import { SearchComponent } from './views/search/search.component';
+import { LstComponent } from './views/lst/lst.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -56,7 +57,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent],
+  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent, LstComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

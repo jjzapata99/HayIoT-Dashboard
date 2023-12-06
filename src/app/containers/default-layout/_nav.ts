@@ -7,6 +7,7 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-speedometer' },
 
   },
+
   {
     name: 'Registro',
     url: '/registrar',
@@ -17,6 +18,11 @@ export const navItems: INavData[] = [
     url: '/entidades',
     iconComponent: { name: 'cil-file'},
   },
+  // {
+  //   name: 'LST Dashboard',
+  //   url: '/lst',
+  //   iconComponent: { name: 'cil-star'},
+  // },
   /*{
     title: true,
     name: 'Theme'

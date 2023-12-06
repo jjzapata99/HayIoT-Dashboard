@@ -132,7 +132,7 @@
           <span class="cil-contrast btn-icon mr-2"></span>Buscar</button>
       </c-col>
       <c-col sm="3">
-        <button [disabled]="downloadBt" *ngIf="sensorData['datasets'].length >1" style="margin-left: 10px;" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
+        <button [disabled]="downloadBt" *ngIf="sensorData['datasets'][0]['data'].length >1" style="margin-left: 10px;" (click)="download()" type="button" class="btn btn-primary"><span class="cil-contrast btn-icon mr-2"></span>Descarga CSV</button>
       </c-col>
       <c-col sm="2">
         <select aria-label="Default select example"  cSelect sizing="s" style="flex: 0.4;
@@ -156,7 +156,7 @@
 
     <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
 
-    <c-chart *ngIf="!click && sensorData['datasets'].length >0"
+    <c-chart *ngIf="!click && sensorData['datasets'][0]['data'].length >0"
       [data]= sensorData
       [height]="300"
       [options]="mainChart.options"

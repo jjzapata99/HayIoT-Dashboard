@@ -8,6 +8,7 @@ import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
+import {LstComponent} from "./views/lst/lst.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+      },
+      {
+        path: 'lst',
+        component: LstComponent
       },
       {
         path: 'registrar',

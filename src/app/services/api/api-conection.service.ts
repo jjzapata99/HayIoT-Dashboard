@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class ApiConectionService {
   url = 'https://aias.espol.edu.ec/api/hayiot/';
+  // url = 'http://localhost:8000/api/hayiot/';
   constructor(private http:HttpClient) { }
 
   getQuery(dire : string): any {
