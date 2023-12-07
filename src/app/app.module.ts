@@ -46,9 +46,10 @@ import {MatInputModule} from "@angular/material/input";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
-import {cilBrush, cilCheck, cilList, cilShieldAlt, cilX} from "@coreui/icons";
+import {cilBrush, cilCheck, cilList, cilShieldAlt, cilStar, cilX} from "@coreui/icons";
 import { SearchComponent } from './views/search/search.component';
 import { LstComponent } from './views/lst/lst.component';
+import {ChartjsComponent} from "@coreui/angular-chartjs";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -58,57 +59,58 @@ const APP_CONTAINERS = [
 
 @NgModule({
   declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent, LstComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    AvatarModule,
-    BreadcrumbModule,
-    FooterModule,
-    DropdownModule,
-    GridModule,
-    HeaderModule,
-    SidebarModule,
-    IconModule,
-    NavModule,
-    ButtonModule,
-    FormModule,
-    UtilitiesModule,
-    ButtonGroupModule,
-    ReactiveFormsModule,
-    SidebarModule,
-    SharedModule,
-    TabsModule,
-    ListGroupModule,
-    ProgressModule,
-    BadgeModule,
-    ListGroupModule,
-    CardModule,
-    NgScrollbarModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgIf,
-    JsonPipe,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    ClipboardModule,
-    ToasterComponent,
-    ToastComponent,
-    ToastHeaderComponent,
-    ToastBodyComponent,
-    SpinnerComponent,
-    PaginationComponent,
-    PageItemDirective,
-    PageLinkDirective,
-    ModalComponent,
-    ModalFooterComponent,
-    ModalBodyComponent,
-    ModalHeaderComponent,
-    TooltipModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        AvatarModule,
+        BreadcrumbModule,
+        FooterModule,
+        DropdownModule,
+        GridModule,
+        HeaderModule,
+        SidebarModule,
+        IconModule,
+        NavModule,
+        ButtonModule,
+        FormModule,
+        UtilitiesModule,
+        ButtonGroupModule,
+        ReactiveFormsModule,
+        SidebarModule,
+        SharedModule,
+        TabsModule,
+        ListGroupModule,
+        ProgressModule,
+        BadgeModule,
+        ListGroupModule,
+        CardModule,
+        NgScrollbarModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        JsonPipe,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        ClipboardModule,
+        ToasterComponent,
+        ToastComponent,
+        ToastHeaderComponent,
+        ToastBodyComponent,
+        SpinnerComponent,
+        PaginationComponent,
+        PageItemDirective,
+        PageLinkDirective,
+        ModalComponent,
+        ModalFooterComponent,
+        ModalBodyComponent,
+        ModalHeaderComponent,
+        TooltipModule,
+        ChartjsComponent
+    ],
   providers: [
     {
       provide: LocationStrategy,
@@ -120,5 +122,5 @@ const APP_CONTAINERS = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  icons = { cilList, cilShieldAlt, cilCheck, cilX, cilBrush};
+  icons = { cilList, cilShieldAlt, cilCheck, cilX, cilBrush, cilStar};
 }

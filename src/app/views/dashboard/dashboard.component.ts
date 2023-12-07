@@ -168,13 +168,10 @@ export class DashboardComponent implements OnInit {
   public trafficRadioGroup = new UntypedFormGroup({
     trafficRadio: new UntypedFormControl('Month')
   });
-
-
   toggleToast() {
     this.cText='Valor Copiado!'
     this.visible = !this.visible;
   }
-
   onVisibleChange($event: boolean) {
     this.visible = $event;
     this.percentage = !this.visible ? 0 : this.percentage;

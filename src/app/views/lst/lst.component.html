@@ -1,5 +1,82 @@
-<c-card class="mb-4"  >
-  <c-card-body class="p-4" style="align-self: center; text-align: center">
-<p>lst works!</p>
-  </c-card-body>
-</c-card>
+<!--<c-card class="mb-4"  >-->
+<!--  <c-card-body class="p-4" style="align-self: center; text-align: center">-->
+<!--    <c-row class="align-items-center">-->
+<!--      <c-col>-->
+<!--        <c-chart-->
+<!--                 [data]= sensorData-->
+<!--                 [height]="100"-->
+<!--                 [width]="100"-->
+<!--                 [options]="option"-->
+<!--                 [redraw] = true-->
+<!--                 type="line"-->
+<!--        >-->
+<!--        </c-chart>-->
+<!--      </c-col>-->
+<!--      <c-col>-->
+<!--        <c-chart-->
+<!--          [data]= sensorData-->
+<!--          [height]="100"-->
+<!--          [width]="100"-->
+<!--          [options]="option"-->
+<!--          [redraw] = true-->
+<!--          type="line"-->
+<!--        >-->
+<!--        </c-chart>-->
+<!--      </c-col>-->
+<!--      <c-col>-->
+<!--        <c-chart-->
+<!--          [data]= sensorData-->
+<!--          [height]="100"-->
+<!--          [width]="100"-->
+<!--          [options]="option"-->
+<!--          [redraw] = true-->
+<!--          type="line"-->
+<!--        >-->
+<!--        </c-chart>-->
+<!--      </c-col>-->
+<!--    </c-row>-->
+<!--  </c-card-body>-->
+<!--</c-card>-->
+
+<c-row>
+  <c-col xs="6" lg="3">
+    <c-card class="mb-4">
+      <c-card-header>
+        Bar Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="sensorData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="3">
+    <c-card class="mb-4">
+      <c-card-header>
+        Line Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="sensorData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="3">
+    <c-card class="mb-4">
+      <c-card-header>
+        Doughnut Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="sensorData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="3">
+    <c-card class="mb-4">
+      <c-card-header>
+        Doughnut Chart
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line" [data]="sensorData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

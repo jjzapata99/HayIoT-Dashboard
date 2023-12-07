@@ -18,11 +18,11 @@ export const navItems: INavData[] = [
     url: '/entidades',
     iconComponent: { name: 'cil-file'},
   },
-  // {
-  //   name: 'LST Dashboard',
-  //   url: '/lst',
-  //   iconComponent: { name: 'cil-star'},
-  // },
+  {
+    name: 'LST Dashboard',
+    url: '/lst',
+    iconComponent: { name: 'cil-star'},
+  },
   /*{
     title: true,
     name: 'Theme'
