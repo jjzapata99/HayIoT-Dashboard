@@ -39,43 +39,130 @@
 <!--</c-card>-->
 
 <c-row>
-  <c-col xs="6" lg="3">
+  <c-col xs="6" lg="4">
     <c-card class="mb-4">
       <c-card-header>
-        Bar Chart
+        Humedad
       </c-card-header>
       <c-card-body>
-        <c-chart type="line" [data]="sensorData"></c-chart>
+        <div echarts [options]="optionsHum"  class="velo"></div>
       </c-card-body>
     </c-card>
   </c-col>
-  <c-col xs="6" lg="3">
+  <c-col xs="6" lg="4">
     <c-card class="mb-4">
       <c-card-header>
-        Line Chart
+        Velocidad
       </c-card-header>
       <c-card-body>
-        <c-chart type="line" [data]="sensorData"></c-chart>
+        <div echarts [options]="optionsSpeed"  class="velo"></div>
       </c-card-body>
     </c-card>
   </c-col>
-  <c-col xs="6" lg="3">
+
+  <c-col xs="6" lg="4">
     <c-card class="mb-4">
       <c-card-header>
-        Doughnut Chart
+        Temperatura
       </c-card-header>
       <c-card-body>
-        <c-chart type="line" [data]="sensorData"></c-chart>
+        <div echarts [options]="optionsTemp"  class="velo"></div>
       </c-card-body>
     </c-card>
   </c-col>
-  <c-col xs="6" lg="3">
+</c-row>
+<c-row>
+  <c-col xs="6" lg="4">
     <c-card class="mb-4">
       <c-card-header>
-        Doughnut Chart
+        Shelly
       </c-card-header>
       <c-card-body>
-        <c-chart type="line" [data]="sensorData"></c-chart>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="she"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Accuenergy
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="acu"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Monitor Jefe Laboratorio
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s2"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<c-row>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Proyector
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s3"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Computador Docente
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s6"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Estación 1
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s7"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<c-row>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Estación 2
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s8"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Estación 3
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s9"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="6" lg="4">
+    <c-card class="mb-4">
+      <c-card-header>
+        Estación 4
+      </c-card-header>
+      <c-card-body>
+        <c-chart type="line"[height]="400" [options]="option.options" [data]="s10"></c-chart>
       </c-card-body>
     </c-card>
   </c-col>

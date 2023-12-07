@@ -50,6 +50,7 @@ import {cilBrush, cilCheck, cilList, cilShieldAlt, cilStar, cilX} from "@coreui/
 import { SearchComponent } from './views/search/search.component';
 import { LstComponent } from './views/lst/lst.component';
 import {ChartjsComponent} from "@coreui/angular-chartjs";
+import {NgxEchartsModule} from "ngx-echarts";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -109,7 +110,10 @@ const APP_CONTAINERS = [
         ModalBodyComponent,
         ModalHeaderComponent,
         TooltipModule,
-        ChartjsComponent
+        ChartjsComponent,
+        NgxEchartsModule.forRoot({
+          echarts: () => import('echarts')
+        }),
     ],
   providers: [
     {
