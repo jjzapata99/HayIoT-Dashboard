@@ -16,8 +16,9 @@ import {Chart} from "chart.js";
 })
 
 export class LstComponent implements  OnInit, OnDestroy {
-  chart : any;
+  chart: any;
   option: any
+
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
     this.option = chartsData.mainChart
     this.option.options = {
@@ -49,38 +50,51 @@ export class LstComponent implements  OnInit, OnDestroy {
         }
       }
     };
-    this.option.options.animation= false;
-    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, cilStar,cilFile, cilMenu, cilPencil, cilSpeedometer, ...brandSet };
-    for( let i of this.s31s){
+    this.option.options.animation = false;
+    iconSet.icons = {
+      cilListNumbered,
+      cilPaperPlane,
+      cilCheck,
+      cilBrush,
+      cilX,
+      cilSearch,
+      cilStar,
+      cilFile,
+      cilMenu,
+      cilPencil,
+      cilSpeedometer, ...brandSet
+    };
+    for (let i of this.s31s) {
       this.fetchDataS31(i)
     }
-    for (let i of this.elec){
+    for (let i of this.elec) {
       this.fetchDataElec(i)
     }
   }
+
   private destroy$ = new Subject<void>();
-  temperature =0
+  temperature = 0
   humidity = 0
   velocity = 0
-  s1: any = {datasets: [{'data':[]}], labels: []};
-  s2: any = {datasets: [{'data':[]}], labels: []};
-  s3: any = {datasets: [{'data':[]}], labels: []};
-  s4: any = {datasets: [{'data':[]}], labels: []};
-  s5: any = {datasets: [{'data':[]}], labels: []};
-  s6: any = {datasets: [{'data':[]}], labels: []};
-  s7: any = {datasets: [{'data':[]}], labels: []};
-  s8: any = {datasets: [{'data':[]}], labels: []};
-  s9: any = {datasets: [{'data':[]}], labels: []};
-  s10: any = {datasets: [{'data':[]}], labels: []};
-  acu: any = {datasets: [{'data':[]}], labels: []};
-  she: any = {datasets: [{'data':[]}], labels: []};
-
+  s1: any = {datasets: [{'data': []}], labels: []};
+  s2: any = {datasets: [{'data': []}], labels: []};
+  s3: any = {datasets: [{'data': []}], labels: []};
+  s4: any = {datasets: [{'data': []}], labels: []};
+  s5: any = {datasets: [{'data': []}], labels: []};
+  s6: any = {datasets: [{'data': []}], labels: []};
+  s7: any = {datasets: [{'data': []}], labels: []};
+  s8: any = {datasets: [{'data': []}], labels: []};
+  s9: any = {datasets: [{'data': []}], labels: []};
+  s10: any = {datasets: [{'data': []}], labels: []};
+  acu: any = {datasets: [{'data': []}], labels: []};
+  she: any = {datasets: [{'data': []}], labels: []};
+  s31l = [this.s2, this.s3, this.s6, this.s7, this.s8, this.s9, this.s10]
   s31s = [/*'648ca98972114d2f0457ebbf',*/'648ca97e72114d2f0457ebaf', '648ca81672114d2f0457eb89', /*'648ca97f72114d2f0457ebb7', '648ca96a72114d2f0457eba0',*/ '64b5cb98cca9b534b74527c0',
-  '64b5cbfecca9b534b74528ed', '64b5cc16cca9b534b7452948', '64b5cc2dcca9b534b7452985', '64b5cc45cca9b534b74529c2']
+    '64b5cbfecca9b534b74528ed', '64b5cc16cca9b534b7452948', '64b5cc2dcca9b534b7452985', '64b5cc45cca9b534b74529c2']
   elec = ['64ac62fcdc5442c4e078bb14', '64ad81a0dc5442c4e0796382']
 
   ngOnInit(): void {
-    this.fetchTemp()
+    this.fetchLastDataTemp()
     this.repeat();
   }
 
@@ -107,7 +121,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     ]
   };
 
-  optionsTemp : EChartsOption = {
+  optionsTemp: EChartsOption = {
     series: [
       {
         type: 'gauge',
@@ -180,7 +194,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     ]
   }
 
-  optionsHum: EChartsOption={
+  optionsHum: EChartsOption = {
     series: [
       {
         type: 'gauge',
@@ -270,16 +284,16 @@ export class LstComponent implements  OnInit, OnDestroy {
     ]
   };
 
-  fetchDataS31(id: any){
-    let init =''
+  fetchDataS31(id: any) {
+    let init = ''
     let end = ''
-    let tags : string[] = ['Power'];
+    let tags: string[] = ['Power'];
     init = moment(new Date()).format("DD/MM/YYYY HH:MM:SS")
-    end = moment(new Date()).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
+    end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
-    let obj = {'id':id, "start": init, "end": end, "tags": tags}
+    let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if(response!= null) {
+      if (response != null) {
         let temp: any[] = []
         let temp3: any[] = []
         let temp5: any[] = []
@@ -308,50 +322,51 @@ export class LstComponent implements  OnInit, OnDestroy {
         }
         // if(id == '648ca98972114d2f0457ebbf'){
         //   this.s1 = {datasets: temp5, labels: []}
-        /* }else */if(id == '648ca97e72114d2f0457ebaf'){
-           this.s2 = new Chart('s2', {
-             type: 'line',
-             data: {datasets:temp5, labels:[]},
-             options: this.option.options
-           });
-         }else if(id == '648ca81672114d2f0457eb89'){
+        /* }else */
+        if (id == '648ca97e72114d2f0457ebaf') {
+          this.s2 = new Chart('s2', {
+            type: 'line',
+            data: {datasets: temp5, labels: []},
+            options: this.option.options
+          });
+        } else if (id == '648ca81672114d2f0457eb89') {
           this.s3 = new Chart('s3', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
         }/*else if(id == '648ca97f72114d2f0457ebb7'){
           this.s4 = {datasets: temp5, labels: []}
         }else if(id == '648ca96a72114d2f0457eba0'){
           this.s5 = {datasets: temp5, labels: []}
-        }*/else if(id == '64b5cb98cca9b534b74527c0'){
+        }*/ else if (id == '64b5cb98cca9b534b74527c0') {
           this.s6 = new Chart('s6', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
-        }else if(id == '64b5cbfecca9b534b74528ed'){
+        } else if (id == '64b5cbfecca9b534b74528ed') {
           this.s7 = new Chart('s7', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
-        }else if(id == '64b5cc16cca9b534b7452948'){
+        } else if (id == '64b5cc16cca9b534b7452948') {
           this.s8 = new Chart('s8', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
-        }else if(id == '64b5cc2dcca9b534b7452985'){
+        } else if (id == '64b5cc2dcca9b534b7452985') {
           this.s9 = new Chart('s9', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
-        }else if(id == '64b5cc45cca9b534b74529c2'){
+        } else if (id == '64b5cc45cca9b534b74529c2') {
           this.s10 = new Chart('s10', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
         }
@@ -360,39 +375,39 @@ export class LstComponent implements  OnInit, OnDestroy {
     });
 
   }
-  fetchTemp(){
-    let init =''
-    let end = ''
-    let tags : string[] = ['humedad','velocidad','temperatura'];
-    init = moment(new Date()).format("DD/MM/YYYY HH:MM:SS")
-    end = moment(new Date()).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
-    let query = 'getDataWeb'
-    let obj = {'id':'64ac3680dc5442c4e078a0f9', "start": init, "end": end, "tags": tags}
-    this.api.putQuery(query, obj).subscribe( (response:any )=> {
-        response.slice(-3).forEach((item: any) => {
-          if (item.type === 'temperatura') {
-            this.temperature = parseFloat(item.data.toFixed(1));
-          } else if (item.type === 'humedad') {
-            this.humidity = parseFloat(item.data.toFixed(1));
-          } else if (item.type === 'velocidad') {
-            this.velocity = parseFloat(item.data.toFixed(1));
-          }
-        });
-      this.reloadG()
-    })
 
+  // fetchTemp() {
+  //   let init = ''
+  //   let end = ''
+  //   let tags: string[] = ['humedad', 'velocidad', 'temperatura'];
+  //   init = moment(new Date()).format("DD/MM/YYYY HH:MM:SS")
+  //   end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
+  //   let query = 'getDataWeb'
+  //   let obj = {'id': '64ac3680dc5442c4e078a0f9', "start": init, "end": end, "tags": tags}
+  //   this.api.putQuery(query, obj).subscribe((response: any) => {
+  //     response.slice(-3).forEach((item: any) => {
+  //       if (item.type === 'temperatura') {
+  //         this.temperature = parseFloat(item.data.toFixed(1));
+  //       } else if (item.type === 'humedad') {
+  //         this.humidity = parseFloat(item.data.toFixed(1));
+  //       } else if (item.type === 'velocidad') {
+  //         this.velocity = parseFloat(item.data.toFixed(1));
+  //       }
+  //     });
+  //     this.reloadG()
+  //   })
+  // }
 
-  }
-  fetchDataElec(id: any){
-    let init =''
+  fetchDataElec(id: any) {
+    let init = ''
     let end = ''
-    let tags : string[] = ['corriente_A','corriente_B','corriente_C'];
+    let tags: string[] = ['corriente_A', 'corriente_B', 'corriente_C'];
     init = moment(new Date()).format("DD/MM/YYYY HH:MM:SS")
-    end = moment(new Date()).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
+    end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
-    let obj = {'id':id, "start": init, "end": end, "tags": tags}
+    let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if(response!= null) {
+      if (response != null) {
         let temp: any[] = []
         let temp3: any[] = []
         let temp5: any[] = []
@@ -405,7 +420,7 @@ export class LstComponent implements  OnInit, OnDestroy {
           temp3 = []
           for (let x of response) {
             if (i == x.type) {
-              temp3.push({y:x.data, x:new Date(x.sensedAt + 'Z').toLocaleString()})
+              temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
             }
           }
           let color = this.getRandomColor()
@@ -419,16 +434,16 @@ export class LstComponent implements  OnInit, OnDestroy {
             pointBorderColort: color
           })
         }
-        if(id == '64ad81a0dc5442c4e0796382'){
+        if (id == '64ad81a0dc5442c4e0796382') {
           this.she = new Chart('she', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
-        }else if(id == '64ac62fcdc5442c4e078bb14'){
+        } else if (id == '64ac62fcdc5442c4e078bb14') {
           this.acu = new Chart('acu', {
             type: 'line',
-            data: {datasets:temp5, labels:[]},
+            data: {datasets: temp5, labels: []},
             options: this.option.options
           });
         }
@@ -437,8 +452,9 @@ export class LstComponent implements  OnInit, OnDestroy {
     });
 
   }
+
   private repeat() {
-    interval(20000)
+    interval(10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getLastest();
@@ -446,23 +462,15 @@ export class LstComponent implements  OnInit, OnDestroy {
   }
 
   private getLastest() {
-    // let temp = new Date().toLocaleString()
-    // for(let i in this.s2.data.datasets){
-    //   if(this.s2.data.datasets[i]['label'] == 'Power'){
-    //     this.s2.data.datasets[i].data.push({y:100, x:temp})
-    //   }
-    // }
-    // this.s2.update();
-    // this.s2.update();
-    // this.temperature=10;
-    // this.humidity=30;
-    // this.velocity = 0.6;
-    this.reloadG()
+    this.fetchLastDataS31()
+    this.fetchLastDataElec()
+    this.fetchLastDataTemp()
 
 
   }
-  reloadG(){
-    this.optionsSpeed= {
+
+  reloadG() {
+    this.optionsSpeed = {
       tooltip: {
         formatter: '{a} <br/>{b} : {c}%'
       },
@@ -484,7 +492,7 @@ export class LstComponent implements  OnInit, OnDestroy {
         }
       ]
     };
-    this.optionsHum={
+    this.optionsHum = {
       series: [
         {
           type: 'gauge',
@@ -646,7 +654,8 @@ export class LstComponent implements  OnInit, OnDestroy {
       ]
     }
   }
-  getRandomColor(){
+
+  getRandomColor() {
     const minHue = 0;
     const maxHue = 360;
     const minSaturation = 20;
@@ -659,7 +668,104 @@ export class LstComponent implements  OnInit, OnDestroy {
     const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     return color;
   }
+  fetchLastDataS31(){
+    let query = 'getLastData'
+    for(let id of this.s31s){
+      let obj = {'id': id, "tags":['Power']}
+      this.api.putQuery(query, obj).subscribe((resp : any) =>{
+        // if(id == '648ca98972114d2f0457ebbf'){
+        //   this.s1 = {datasets: temp5, labels: []}
+        /* }else */
+        if (id == '648ca97e72114d2f0457ebaf') {
+          this.s2.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s2.update()
+          this.s2.update()
+        } else if (id == '648ca81672114d2f0457eb89') {
+          this.s3.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s3.update()
+          this.s3.update()
 
+        }/*else if(id == '648ca97f72114d2f0457ebb7'){
+          this.s4 = {datasets: temp5, labels: []}
+        }else if(id == '648ca96a72114d2f0457eba0'){
+          this.s5 = {datasets: temp5, labels: []}
+        }*/ else if (id == '64b5cb98cca9b534b74527c0') {
+          this.s6.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s6.update()
+          this.s6.update()
+
+        } else if (id == '64b5cbfecca9b534b74528ed') {
+          this.s7.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()});
+          this.s7.update()
+          this.s7.update()
+
+        } else if (id == '64b5cc16cca9b534b7452948') {
+          this.s8.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s8.update()
+          this.s8.update()
+
+        } else if (id == '64b5cc2dcca9b534b7452985') {
+          this.s9.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s9.update()
+          this.s9.update()
+
+        } else if (id == '64b5cc45cca9b534b74529c2') {
+          this.s10.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          this.s10.update()
+          this.s10.update()
+
+        }});
+    }
+  }
+  fetchLastDataElec(){
+    let query = 'getLastData'
+    for(let id of this.elec){
+      let obj = {'id': id, "tags":['corriente_A','corriente_B', "corriente_C"]}
+      this.api.putQuery(query, obj).subscribe((resp : any) =>{
+        for(let tags of resp){
+          if (id == '64ad81a0dc5442c4e0796382') {
+            for(let n in this.she.data.datasets){
+              if(tags.type == this.she.data.datasets[n].label){
+                this.she.data.datasets[n].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              }
+            }
+            // this.she.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          } else if (id == '64ac62fcdc5442c4e078bb14') {
+            for(let n in this.she.data.datasets){
+              if(tags.type == this.she.data.datasets[n].label){
+                this.acu.data.datasets[n].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+
+              }
+            }
+
+            // this.acu.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+          }
+        }
+        this.she.update()
+        this.she.update()
+        this.acu.update()
+        this.acu.update()
+
+      });
+
+    }
+  }
+  fetchLastDataTemp(){
+    let query = 'getLastData'
+    let obj = {'id': '64ac3680dc5442c4e078a0f9', "tags":['humedad', 'velocidad', 'temperatura']}
+    this.api.putQuery(query, obj).subscribe((response: any) => {
+      response.forEach((item: any) => {
+        if (item.type === 'temperatura') {
+          this.temperature = parseFloat(item.data.toFixed(1));
+        } else if (item.type === 'humedad') {
+          this.humidity = parseFloat(item.data.toFixed(1));
+        } else if (item.type === 'velocidad') {
+          this.velocity = parseFloat(item.data.toFixed(1));
+        }
+      });
+      this.reloadG()
+  });
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
