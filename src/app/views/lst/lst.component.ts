@@ -766,15 +766,13 @@ export class LstComponent implements  OnInit, OnDestroy {
               for (let n in this.she.data.datasets) {
                 if (tags.type == this.she.data.datasets[n].label) {
                   this.she.data.datasets[n].data.push({
-                    y: resp[0].data,
-                    x: new Date(resp[0].sensedAt + 'Z').toLocaleString()
+                    y: tags.data,
+                    x: new Date(tags.sensedAt + 'Z').toLocaleString()
                   })
                 }
               }
             }else{
               this.fetchDataElec('64ad81a0dc5442c4e0796382')
-
-
             }
             // this.she.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
           } else if (id == '64ac62fcdc5442c4e078bb14') {
@@ -782,8 +780,8 @@ export class LstComponent implements  OnInit, OnDestroy {
               for (let n in this.she.data.datasets) {
                 if (tags.type == this.she.data.datasets[n].label) {
                   this.acu.data.datasets[n].data.push({
-                    y: resp[0].data,
-                    x: new Date(resp[0].sensedAt + 'Z').toLocaleString()
+                    y: tags.data,
+                    x: new Date(tags.sensedAt + 'Z').toLocaleString()
                   })
                 }
               }
