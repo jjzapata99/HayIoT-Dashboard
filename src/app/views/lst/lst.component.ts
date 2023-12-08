@@ -76,18 +76,18 @@ export class LstComponent implements  OnInit, OnDestroy {
   temperature = 0
   humidity = 0
   velocity = 0
-  s1: any = {datasets: [{'data': []}], labels: []};
-  s2: any = {datasets: [{'data': []}], labels: []};
-  s3: any = {datasets: [{'data': []}], labels: []};
-  s4: any = {datasets: [{'data': []}], labels: []};
-  s5: any = {datasets: [{'data': []}], labels: []};
-  s6: any = {datasets: [{'data': []}], labels: []};
-  s7: any = {datasets: [{'data': []}], labels: []};
-  s8: any = {datasets: [{'data': []}], labels: []};
-  s9: any = {datasets: [{'data': []}], labels: []};
-  s10: any = {datasets: [{'data': []}], labels: []};
-  acu: any = {datasets: [{'data': []}], labels: []};
-  she: any = {datasets: [{'data': []}], labels: []};
+  s1: any = null;
+  s2: any = null;
+  s3: any = null;
+  s4: any = null;
+  s5: any = null;
+  s6: any = null;
+  s7: any = null;
+  s8: any = null;
+  s9: any = null;
+  s10: any = null;
+  acu: any = null;
+  she: any = null;
   s31l = [this.s2, this.s3, this.s6, this.s7, this.s8, this.s9, this.s10]
   s31s = [/*'648ca98972114d2f0457ebbf',*/'648ca97e72114d2f0457ebaf', '648ca81672114d2f0457eb89', /*'648ca97f72114d2f0457ebb7', '648ca96a72114d2f0457eba0',*/ '64b5cb98cca9b534b74527c0',
     '64b5cbfecca9b534b74528ed', '64b5cc16cca9b534b7452948', '64b5cc2dcca9b534b7452985', '64b5cc45cca9b534b74529c2']
@@ -293,85 +293,87 @@ export class LstComponent implements  OnInit, OnDestroy {
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if (response != null) {
-        let temp: any[] = []
-        let temp3: any[] = []
-        let temp5: any[] = []
-        for (let i of response) {
-          if (!temp.includes(i.type)) {
-            temp.push(i.type)
-          }
-        }
-        for (let i of temp) {
-          temp3 = []
-          for (let x of response) {
-            if (i == x.type) {
-              temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+      if(response.length >0){
+        if (response != null) {
+          let temp: any[] = []
+          let temp3: any[] = []
+          let temp5: any[] = []
+          for (let i of response) {
+            if (!temp.includes(i.type)) {
+              temp.push(i.type)
             }
           }
-          let color = this.getRandomColor()
-          temp5.push({
-            data: temp3,
-            label: i,
-            borderColor: color,
-            backgroundColor: color,
-            pointBackgroundColor: color,
-            display: false,
-            pointBorderColort: color
-          })
-        }
-        // if(id == '648ca98972114d2f0457ebbf'){
-        //   this.s1 = {datasets: temp5, labels: []}
-        /* }else */
-        if (id == '648ca97e72114d2f0457ebaf') {
-          this.s2 = new Chart('s2', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '648ca81672114d2f0457eb89') {
-          this.s3 = new Chart('s3', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        }/*else if(id == '648ca97f72114d2f0457ebb7'){
+          for (let i of temp) {
+            temp3 = []
+            for (let x of response) {
+              if (i == x.type) {
+                temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+              }
+            }
+            let color = this.getRandomColor()
+            temp5.push({
+              data: temp3,
+              label: i,
+              borderColor: color,
+              backgroundColor: color,
+              pointBackgroundColor: color,
+              display: false,
+              pointBorderColort: color
+            })
+          }
+          // if(id == '648ca98972114d2f0457ebbf'){
+          //   this.s1 = {datasets: temp5, labels: []}
+          /* }else */
+          if (id == '648ca97e72114d2f0457ebaf') {
+            this.s2 = new Chart('s2', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '648ca81672114d2f0457eb89') {
+            this.s3 = new Chart('s3', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+
+          }/*else if(id == '648ca97f72114d2f0457ebb7'){
           this.s4 = {datasets: temp5, labels: []}
         }else if(id == '648ca96a72114d2f0457eba0'){
           this.s5 = {datasets: temp5, labels: []}
         }*/ else if (id == '64b5cb98cca9b534b74527c0') {
-          this.s6 = new Chart('s6', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '64b5cbfecca9b534b74528ed') {
-          this.s7 = new Chart('s7', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '64b5cc16cca9b534b7452948') {
-          this.s8 = new Chart('s8', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '64b5cc2dcca9b534b7452985') {
-          this.s9 = new Chart('s9', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '64b5cc45cca9b534b74529c2') {
-          this.s10 = new Chart('s10', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
+            this.s6 = new Chart('s6', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '64b5cbfecca9b534b74528ed') {
+            this.s7 = new Chart('s7', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '64b5cc16cca9b534b7452948') {
+            this.s8 = new Chart('s8', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '64b5cc2dcca9b534b7452985') {
+            this.s9 = new Chart('s9', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '64b5cc45cca9b534b74529c2') {
+            this.s10 = new Chart('s10', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          }
         }
       }
-
     });
 
   }
@@ -407,48 +409,49 @@ export class LstComponent implements  OnInit, OnDestroy {
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if (response != null) {
-        let temp: any[] = []
-        let temp3: any[] = []
-        let temp5: any[] = []
-        for (let i of response) {
-          if (!temp.includes(i.type)) {
-            temp.push(i.type)
-          }
-        }
-        for (let i of temp) {
-          temp3 = []
-          for (let x of response) {
-            if (i == x.type) {
-              temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+      if(response.length >0) {
+        if (response != null) {
+          let temp: any[] = []
+          let temp3: any[] = []
+          let temp5: any[] = []
+          for (let i of response) {
+            if (!temp.includes(i.type)) {
+              temp.push(i.type)
             }
           }
-          let color = this.getRandomColor()
-          temp5.push({
-            data: temp3,
-            label: i,
-            borderColor: color,
-            backgroundColor: color,
-            pointBackgroundColor: color,
-            display: false,
-            pointBorderColort: color
-          })
-        }
-        if (id == '64ad81a0dc5442c4e0796382') {
-          this.she = new Chart('she', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
-        } else if (id == '64ac62fcdc5442c4e078bb14') {
-          this.acu = new Chart('acu', {
-            type: 'line',
-            data: {datasets: temp5, labels: []},
-            options: this.option.options
-          });
+          for (let i of temp) {
+            temp3 = []
+            for (let x of response) {
+              if (i == x.type) {
+                temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+              }
+            }
+            let color = this.getRandomColor()
+            temp5.push({
+              data: temp3,
+              label: i,
+              borderColor: color,
+              backgroundColor: color,
+              pointBackgroundColor: color,
+              display: false,
+              pointBorderColort: color
+            })
+          }
+          if (id == '64ad81a0dc5442c4e0796382') {
+            this.she = new Chart('she', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          } else if (id == '64ac62fcdc5442c4e078bb14') {
+            this.acu = new Chart('acu', {
+              type: 'line',
+              data: {datasets: temp5, labels: []},
+              options: this.option.options
+            });
+          }
         }
       }
-
     });
 
   }
@@ -677,43 +680,78 @@ export class LstComponent implements  OnInit, OnDestroy {
         //   this.s1 = {datasets: temp5, labels: []}
         /* }else */
         if (id == '648ca97e72114d2f0457ebaf') {
-          this.s2.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s2.update()
-          this.s2.update()
-        } else if (id == '648ca81672114d2f0457eb89') {
-          this.s3.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s3.update()
-          this.s3.update()
+          if(this.s2!=null){
+            this.s2.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s2.update()
+            this.s2.update()
+          }else{
+            this.fetchDataS31('648ca97e72114d2f0457ebaf')
 
+          }
+
+        } else if (id == '648ca81672114d2f0457eb89') {
+          if(this.s3!=null) {
+            this.s3.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s3.update()
+            this.s3.update()
+          }else{
+            this.fetchDataS31('648ca81672114d2f0457eb89')
+
+          }
         }/*else if(id == '648ca97f72114d2f0457ebb7'){
           this.s4 = {datasets: temp5, labels: []}
         }else if(id == '648ca96a72114d2f0457eba0'){
           this.s5 = {datasets: temp5, labels: []}
         }*/ else if (id == '64b5cb98cca9b534b74527c0') {
-          this.s6.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s6.update()
-          this.s6.update()
+          if(this.s6!=null) {
+            this.s6.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s6.update()
+            this.s6.update()
+          }else{
+            this.fetchDataS31('64b5cb98cca9b534b74527c0')
 
+
+          }
         } else if (id == '64b5cbfecca9b534b74528ed') {
-          this.s7.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()});
-          this.s7.update()
-          this.s7.update()
+          if(this.s7!=null) {
+            this.s7.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()});
+            this.s7.update()
+            this.s7.update()
+          }else{
+            this.fetchDataS31('64b5cbfecca9b534b74528ed')
+
+
+          }
 
         } else if (id == '64b5cc16cca9b534b7452948') {
-          this.s8.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s8.update()
-          this.s8.update()
+          if(this.s7!=null) {
+            this.s8.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s8.update()
+            this.s8.update()
+          }else{
+            this.fetchDataS31('64b5cc16cca9b534b7452948')
+
+          }
 
         } else if (id == '64b5cc2dcca9b534b7452985') {
-          this.s9.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s9.update()
-          this.s9.update()
+          if(this.s9!=null) {
+            this.s9.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s9.update()
+            this.s9.update()
+          }else{
+            this.fetchDataS31('64b5cc2dcca9b534b7452985')
 
+
+          }
         } else if (id == '64b5cc45cca9b534b74529c2') {
-          this.s10.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-          this.s10.update()
-          this.s10.update()
+          if(this.s10!=null) {
+            this.s10.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            this.s10.update()
+            this.s10.update()
+          }else{
+            this.fetchDataS31('64b5cc45cca9b534b74529c2')
 
+          }
         }});
     }
   }
@@ -724,18 +762,35 @@ export class LstComponent implements  OnInit, OnDestroy {
       this.api.putQuery(query, obj).subscribe((resp : any) =>{
         for(let tags of resp){
           if (id == '64ad81a0dc5442c4e0796382') {
-            for(let n in this.she.data.datasets){
-              if(tags.type == this.she.data.datasets[n].label){
-                this.she.data.datasets[n].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+            if(this.she!=null) {
+              for (let n in this.she.data.datasets) {
+                if (tags.type == this.she.data.datasets[n].label) {
+                  this.she.data.datasets[n].data.push({
+                    y: resp[0].data,
+                    x: new Date(resp[0].sensedAt + 'Z').toLocaleString()
+                  })
+                }
               }
+            }else{
+              this.fetchDataElec('64ad81a0dc5442c4e0796382')
+
+
             }
             // this.she.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
           } else if (id == '64ac62fcdc5442c4e078bb14') {
-            for(let n in this.she.data.datasets){
-              if(tags.type == this.she.data.datasets[n].label){
-                this.acu.data.datasets[n].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-
+            if(this.acu!=null) {
+              for (let n in this.she.data.datasets) {
+                if (tags.type == this.she.data.datasets[n].label) {
+                  this.acu.data.datasets[n].data.push({
+                    y: resp[0].data,
+                    x: new Date(resp[0].sensedAt + 'Z').toLocaleString()
+                  })
+                }
               }
+            }else{
+              this.fetchDataElec('64ac62fcdc5442c4e078bb14')
+
+
             }
 
             // this.acu.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
