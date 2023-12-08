@@ -37,7 +37,6 @@
 <!--    </c-row>-->
 <!--  </c-card-body>-->
 <!--</c-card>-->
-
 <c-row>
   <c-col xs="6" lg="4">
     <c-card class="mb-4">
@@ -78,7 +77,10 @@
         Shelly
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="she"></c-chart>
+<!--        <c-chart type="line"[height]="400" [redraw]="true" [options]="option.options" [data]="she"></c-chart>-->
+        <div >
+          <canvas class="chart" id="she" [height]="400">{{she}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -88,7 +90,10 @@
         Accuenergy
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="acu"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="acu"></c-chart>-->
+        <div >
+          <canvas class="chart" id="acu" [height]="400">{{acu}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -98,7 +103,10 @@
         Monitor Jefe Laboratorio
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s2"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s2"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s2" [height]="400">{{s2}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -110,7 +118,10 @@
         Proyector
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s3"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s3"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s3" [height]="400">{{s3}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -120,7 +131,10 @@
         Computador Docente
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s6"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s6"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s6" [height]="400">{{s6}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -130,7 +144,10 @@
         Estación 1
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s7"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s7"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s7" [height]="400">{{s7}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -142,7 +159,10 @@
         Estación 2
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s8"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s8"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s8" [height]="400">{{s8}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -152,7 +172,10 @@
         Estación 3
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s9"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s9"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s9" [height]="400">{{s9}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
@@ -162,7 +185,10 @@
         Estación 4
       </c-card-header>
       <c-card-body>
-        <c-chart type="line"[height]="400" [options]="option.options" [data]="s10"></c-chart>
+<!--        <c-chart type="line"[height]="400" [options]="option.options" [data]="s10"></c-chart>-->
+        <div >
+          <canvas class="chart" id="s10" [height]="400">{{s10}}</canvas>
+        </div>
       </c-card-body>
     </c-card>
   </c-col>
