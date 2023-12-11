@@ -288,7 +288,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     let init = ''
     let end = ''
     let tags: string[] = ['Power'];
-    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY HH:MM:SS")
+    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY H:M:S")
     end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
@@ -404,7 +404,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     let init = ''
     let end = ''
     let tags: string[] = ['corriente_A', 'corriente_B', 'corriente_C'];
-    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY HH:MM:SS")
+    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY H:M:S")
     end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
@@ -793,11 +793,14 @@ export class LstComponent implements  OnInit, OnDestroy {
             // this.acu.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
           }
         }
-        this.she.update()
-        this.she.update()
-        this.acu.update()
-        this.acu.update()
-
+        if (this.she != null){
+          this.she.update()
+          this.she.update()
+        }
+        if(this.acu!= null){
+          this.acu.update()
+          this.acu.update()
+        }
       });
 
     }
