@@ -408,7 +408,6 @@ export class LstComponent implements  OnInit, OnDestroy {
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      console.log(id)
         if (response.length >0) {
           let temp: any[] = []
           let temp3: any[] = []
@@ -680,20 +679,25 @@ export class LstComponent implements  OnInit, OnDestroy {
         /* }else */
         if (id == '648ca97e72114d2f0457ebaf') {
           if(this.s2!=null){
-            this.s2.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s2.data.datasets[0].data.shift()
-            this.s2.update()
-            this.s2.update()
+            if(!(this.s2.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s2.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s2.data.datasets[0].data.shift()
+              this.s2.update()
+              this.s2.update()
+            }
           }else{
             this.fetchDataS31('648ca97e72114d2f0457ebaf')
           }
         } else if (id == '648ca81672114d2f0457eb89') {
           if(this.s3!=null) {
-            this.s3.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s3.data.datasets[0].data.shift()
+            if(!(this.s3.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s3.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s3.data.datasets[0].data.shift()
 
-            this.s3.update()
-            this.s3.update()
+              this.s3.update()
+              this.s3.update()
+            }
+
           }else{
             this.fetchDataS31('648ca81672114d2f0457eb89')
           }
@@ -703,48 +707,60 @@ export class LstComponent implements  OnInit, OnDestroy {
           this.s5 = {datasets: temp5, labels: []}
         }*/ else if (id == '64b5cb98cca9b534b74527c0') {
           if(this.s6!=null) {
-            this.s6.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s6.data.datasets[0].data.shift()
-            this.s6.update()
-            this.s6.update()
+            if(!(this.s6.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s6.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s6.data.datasets[0].data.shift()
+              this.s6.update()
+              this.s6.update()
+            }
           }else{
             this.fetchDataS31('64b5cb98cca9b534b74527c0')
           }
         } else if (id == '64b5cbfecca9b534b74528ed') {
           if(this.s7!=null) {
-            this.s7.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()});
-            this.s7.data.datasets[0].data.shift()
+            if(!(this.s7.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s7.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()});
+              this.s7.data.datasets[0].data.shift()
 
-            this.s7.update()
-            this.s7.update()
+              this.s7.update()
+              this.s7.update()
+            }
           }else{
             this.fetchDataS31('64b5cbfecca9b534b74528ed')
           }
         } else if (id == '64b5cc16cca9b534b7452948') {
-          if(this.s7!=null) {
-            this.s8.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s8.data.datasets[0].data.shift()
+          if(this.s8!=null) {
+            if(!(this.s8.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s8.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s8.data.datasets[0].data.shift()
 
-            this.s8.update()
-            this.s8.update()
+              this.s8.update()
+              this.s8.update()
+            }
+
           }else{
             this.fetchDataS31('64b5cc16cca9b534b7452948')
           }
         } else if (id == '64b5cc2dcca9b534b7452985') {
           if(this.s9!=null) {
-            this.s9.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s9.data.datasets[0].data.shift()
-            this.s9.update()
-            this.s9.update()
+            if(!(this.s9.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s9.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s9.data.datasets[0].data.shift()
+              this.s9.update()
+              this.s9.update()
+            }
+
           }else{
             this.fetchDataS31('64b5cc2dcca9b534b7452985')
           }
         } else if (id == '64b5cc45cca9b534b74529c2') {
           if(this.s10!=null) {
-            this.s10.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
-            this.s10.data.datasets[0].data.shift()
-            this.s10.update()
-            this.s10.update()
+            if(!(this.s10.data.datasets[0].data.includes(new Date(resp[0].sensedAt + 'Z').toLocaleString()))){
+              this.s10.data.datasets[0].data.push({y: resp[0].data, x: new Date(resp[0].sensedAt + 'Z').toLocaleString()})
+              this.s10.data.datasets[0].data.shift()
+              this.s10.update()
+              this.s10.update()
+            }
           }else{
             this.fetchDataS31('64b5cc45cca9b534b74529c2')
           }
@@ -760,7 +776,7 @@ export class LstComponent implements  OnInit, OnDestroy {
           if (id == '64ad81a0dc5442c4e0796382') {
             if(this.she!=null) {
               for (let n in this.she.data.datasets) {
-                if (tags.type == this.she.data.datasets[n].label) {
+                if (tags.type == this.she.data.datasets[n].label && !(this.she.data.datasets[n].data.includes(new Date(tags.sensedAt  + 'Z').toLocaleString()))) {
                   this.she.data.datasets[n].data.push({
                     y: tags.data,
                     x: new Date(tags.sensedAt + 'Z').toLocaleString()
@@ -774,8 +790,8 @@ export class LstComponent implements  OnInit, OnDestroy {
             // this.she.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
           } else if (id == '64ac62fcdc5442c4e078bb14') {
             if(this.acu!=null) {
-              for (let n in this.she.data.datasets) {
-                if (tags.type == this.she.data.datasets[n].label) {
+              for (let n in this.acu.data.datasets) {
+                if (tags.type == this.she.data.datasets[n].label && !(this.acu.data.datasets[n].data.includes(new Date(tags.sensedAt + 'Z').toLocaleString()))) {
                   this.acu.data.datasets[n].data.push({
                     y: tags.data,
                     x: new Date(tags.sensedAt + 'Z').toLocaleString()
@@ -785,10 +801,7 @@ export class LstComponent implements  OnInit, OnDestroy {
               }
             }else{
               this.fetchDataElec('64ac62fcdc5442c4e078bb14')
-
-
             }
-
             // this.acu.data.datasets[0].data.push({y:resp[0].data, x:new Date(resp[0].sensedAt + 'Z').toLocaleString()})
           }
         }
