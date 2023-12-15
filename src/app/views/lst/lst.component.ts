@@ -293,8 +293,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if(response.length >0){
-        if (response != null) {
+        if (response.length >0) {
           let temp: any[] = []
           let temp3: any[] = []
           let temp5: any[] = []
@@ -307,7 +306,7 @@ export class LstComponent implements  OnInit, OnDestroy {
             temp3 = []
             for (let x of response) {
               if (i == x.type) {
-                temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+                temp3.push({y: x.data, x: new Date(x.sensedAt).toLocaleString()})
               }
             }
             let color = this.getRandomColor()
@@ -373,7 +372,7 @@ export class LstComponent implements  OnInit, OnDestroy {
             });
           }
         }
-      }
+
     });
 
   }
@@ -409,8 +408,8 @@ export class LstComponent implements  OnInit, OnDestroy {
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      if(response.length >0) {
-        if (response != null) {
+      console.log(id)
+        if (response.length >0) {
           let temp: any[] = []
           let temp3: any[] = []
           let temp5: any[] = []
@@ -423,7 +422,7 @@ export class LstComponent implements  OnInit, OnDestroy {
             temp3 = []
             for (let x of response) {
               if (i == x.type) {
-                temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+                temp3.push({y: x.data, x: new Date(x.sensedAt).toLocaleString()})
               }
             }
             let color = this.getRandomColor()
@@ -451,7 +450,7 @@ export class LstComponent implements  OnInit, OnDestroy {
             });
           }
         }
-      }
+
     });
 
   }

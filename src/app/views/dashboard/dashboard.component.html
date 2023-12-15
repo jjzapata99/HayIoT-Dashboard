@@ -153,9 +153,11 @@
         Copiar
       </button>
     </c-input-group>
-
     <c-spinner *ngIf="spinner" aria-hidden="true" size="sm"></c-spinner>
-
+    <div *ngIf="noData" style="flex-direction: column; align-items: center; display: flex; padding: 10px">
+      <svg cIcon name="cilFindInPage" style="width: 5%; height: auto;"></svg>
+      <span style="width: 15%; text-align: -webkit-center; padding: 10px">No se han encontrado datos, dentro del rango de fechas</span>
+    </div>
     <c-chart *ngIf="!click && sensorData['datasets'][0]['data'].length >0"
       [data]= sensorData
       [height]="300"

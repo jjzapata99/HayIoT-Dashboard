@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { IconSetService } from '@coreui/icons-angular';
-import {cilListNumbered, cilPaperPlane, brandSet, cilSearch, cilCheck, cilX, cilBrush} from '@coreui/icons';
+import {cilListNumbered, cilPaperPlane, brandSet, cilSearch, cilCheck, cilX, cilBrush, cilFindInPage} from '@coreui/icons';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import {ApiConectionService} from "../../services/api/api-conection.service";
 import * as moment from "moment";
@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   visible = false;
   percentage = 0;
   typeDate = 'Local';
+  noData = false;
   enableEdit = false;
   id_sensor : any ;
   etiquetasDisponibles: string[] = ['temp', 'thermal', 'time','electricity'];
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit {
   tempData : any;
   public visiblePop = false;
   constructor(private api: ApiConectionService, private chartsData: DashboardChartsData, public iconSet: IconSetService) {
-    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, ...brandSet };
+    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, cilFindInPage, ...brandSet };
     this.fetchSites()
     this.fetchEquips()
   }
@@ -232,10 +233,11 @@ export class DashboardComponent implements OnInit {
     let query = 'getDataWeb'
     this.tagsSelected=tags
     let obj = {'id':this.selected.id, "start": init, "end": end, "tags": tags}
+    this.noData = false;
     this.spinner= true
     this.api.putQuery(query, obj).subscribe((response: any) => {
-      this.tempData = response;
-      if(response!= null) {
+      if(response.length>0) {
+        this.tempData = response;
         this.id_sensor = this.selected
         let temp: any[] = []
         let temp3: any[] = []
@@ -249,7 +251,7 @@ export class DashboardComponent implements OnInit {
           temp3 = []
           for (let x of response) {
             if (i == x.type) {
-              temp3.push({y: x.data, x: new Date(x.sensedAt + 'Z').toLocaleString()})
+              temp3.push({y: x.data, x: new Date(x.sensedAt).toLocaleString()})
             }
           }
           let color = this.getRandomColor()
@@ -264,6 +266,8 @@ export class DashboardComponent implements OnInit {
           })
         }
         this.sensorData = {datasets: temp5, labels: []}
+      }else{
+        this.noData = true;
       }
       this.click = false
       this.spinner = false
@@ -293,24 +297,25 @@ export class DashboardComponent implements OnInit {
     this.cText='La descarga podría demorar unos minutos.';
     this.visible = !this.visible;
     this.downloadBt = true
-    // let init =''
-    // let end = ''
-    // if(this.typeDate == 'UTC'){
-    //   init = moment(this.range.value.start).format("DD/MM/YYYY")
-    //   end = moment(this.range.value.end).format("DD/MM/YYYY")
-    // }else{
-    //     init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
-    //   end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
-    // }
-    // let query = 'getDataWeb'
+    let init =''
+    let end = ''
+    if(this.typeDate == 'UTC'){
+      init = moment(this.range.value.start).format("DD/MM/YYYY")
+      end = moment(this.range.value.end).format("DD/MM/YYYY")
+    }else{
+        init = moment(this.range.value.start).format("DD/MM/YYYY") + ' 05:00:00'
+      end = moment(this.range.value.end).add(1,'days').format("DD/MM/YYYY") + ' 05:00:00'
+    }
+    let query = 'getData?id='.concat(this.selected.id)+'&start='.concat(init)+'&end='.concat(end)
     // let obj = {'id':this.selected.id, "start": init, "end": end, "tags": this.tagsSelected}
-    // this.spinner= true
-    // this.api.putQuery(query, obj).subscribe((response: any) => {
-    //   this.csvData = response
-    //   this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
-    //   this.downloadBt = false
-    // })
-    this.downloadFile(this.tempData, 'hayIot-'.concat(this.id_sensor.description));
+    this.spinner= true
+    console.log(query)
+    this.api.getQuery(query).subscribe((response: any) => {
+      this.csvData = response
+      this.downloadFile(this.csvData, 'hayIot-'.concat(this.id_sensor.description));
+      this.downloadBt = false
+    })
+    // this.downloadFile(this.tempData, 'hayIot-'.concat(this.id_sensor.description));
   }
 
   downloadFile(data: any, filename='data') {
