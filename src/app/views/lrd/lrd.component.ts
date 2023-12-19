@@ -391,7 +391,7 @@ export class LrdComponent  implements  OnInit, OnDestroy{
             for (let i in Chart.getChart(id)?.data.datasets!) {
               if (Chart.getChart(id)?.data.datasets[i].label == item.type) {
                 let n: any = {
-                  y: item.data, x: new Date(item.sensedAt).toLocaleString()
+                  y: item.data, x: new Date(item.sensedAt + 'Z').toLocaleString()
                 }
                 Chart.getChart(id)!.data.datasets[i].data.push(n)
                 Chart.getChart(id)!.data.datasets[i].data.shift()
