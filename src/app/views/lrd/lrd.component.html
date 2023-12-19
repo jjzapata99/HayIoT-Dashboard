@@ -1,0 +1,29 @@
+<div  style="display: flex; flex-wrap: wrap; place-content: center">
+  <div *ngFor="let i of sensors, index as n">
+    <c-row  style="padding: 10px" >
+      <c-col>
+        <c-card style="width: 610px">
+          <c-card-header>
+            Estación {{n+1}}
+          </c-card-header>
+          <c-card-body style="display: flex; flex-direction: column">
+            <div *ngIf="!badSensors.includes(i)">
+              <div style="align-self: center; width: 566px" >
+                <canvas class="chart" id="{{i}}" style="width: inherit" [height]="300"></canvas>
+              </div>
+              <div style="display: flex;">
+                <div echarts id="{{i}}1" [options]="optionsHum" class="velo"></div>
+                <div echarts id="{{i}}2" [options]="optionsTemp"  class="velo"></div>
+              </div>
+            </div>
+            <div *ngIf="badSensors.includes(i)" style="display: flex; flex-direction: column; align-items: center; padding: 160px">
+              <svg cIcon name="cilFindInPage" style="width: 50%; height: auto;"></svg>
+              <span style="width: 40%; text-align: -webkit-center; padding: 10px">No existen datos en los ultimos 30 minutos</span>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+
+    </c-row>
+  </div>
+</div>

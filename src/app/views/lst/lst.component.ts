@@ -288,7 +288,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     let init = ''
     let end = ''
     let tags: string[] = ['Power'];
-    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY H:00:00")
+    init = moment(new Date(new Date().getTime() + 3600 * 4000)).format("DD/MM/YYYY HH:mm:00")
     end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
@@ -403,7 +403,7 @@ export class LstComponent implements  OnInit, OnDestroy {
     let init = ''
     let end = ''
     let tags: string[] = ['corriente_A', 'corriente_B', 'corriente_C'];
-    init = moment(new Date(new Date().getTime() + 3600 * 5000)).format("DD/MM/YYYY H:00:00")
+    init = moment(new Date(new Date().getTime() + 3600 * 4000)).format("DD/MM/YYYY HH:mm:00")
     end = moment(new Date()).add(1, 'days').format("DD/MM/YYYY") + ' 05:00:00'
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}

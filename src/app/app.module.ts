@@ -51,6 +51,7 @@ import { SearchComponent } from './views/search/search.component';
 import { LstComponent } from './views/lst/lst.component';
 import {ChartjsComponent} from "@coreui/angular-chartjs";
 import {NgxEchartsModule} from "ngx-echarts";
+import { LrdComponent } from './views/lrd/lrd.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -59,7 +60,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent, LstComponent],
+  declarations: [AppComponent, RegistrarComponent, EntidadesComponent, ...APP_CONTAINERS, SearchComponent, LstComponent, LrdComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

@@ -9,6 +9,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import { RegistrarComponent } from './views/registrar/registrar.component';
 import { EntidadesComponent } from './views/entidades/entidades.component';
 import {LstComponent} from "./views/lst/lst.component";
+import {LrdComponent} from "./views/lrd/lrd.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'lst',
         component: LstComponent
+      },
+      {
+        path: 'lrd',
+        component: LrdComponent
       },
       {
         path: 'registrar',
