@@ -200,7 +200,7 @@ export class LrdComponent  implements  OnInit, OnDestroy{
   }
 
   private repeat() {
-    interval(180000)
+    interval(120000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getLastest();
@@ -385,7 +385,8 @@ export class LrdComponent  implements  OnInit, OnDestroy{
     this.api.putQuery(query, obj).subscribe((response: any) => {
       if(response.length>1){
         let validator :any = Chart.getChart(id)?.data.datasets[0].data
-        if(validator[validator.length -1].x == new Date(response[0].sensedAt + 'Z').toLocaleString()){
+        if(!(validator[validator.length -1].x === new Date(response[0].sensedAt + 'Z').toLocaleString())){
+
           response.forEach((item: any) => {
             for (let i in Chart.getChart(id)?.data.datasets!) {
               if (Chart.getChart(id)?.data.datasets[i].label == item.type) {
