@@ -14,7 +14,7 @@ import {
   cilMenu,
   cilPencil,
   cilSpeedometer,
-  cilFindInPage
+  cilFindInPage, cilRouter, cilRss
 } from "@coreui/icons";
 import {DashboardChartsData} from "../dashboard/dashboard-charts-data";
 import {interval, Subject, takeUntil} from "rxjs";
@@ -161,8 +161,8 @@ export class LrdComponent  implements  OnInit, OnDestroy{
           tension: 0.1
         },
         point: {
-          radius: 0,
-          hitRadius: 1,
+          radius: 1,
+          hitRadius: 2,
           hoverRadius: 1,
           hoverBorderWidth: 1
         }
@@ -181,7 +181,7 @@ export class LrdComponent  implements  OnInit, OnDestroy{
       cilMenu,
       cilPencil,
       cilFindInPage,
-      cilSpeedometer, ...brandSet
+      cilSpeedometer, cilRouter, cilRss, ...brandSet
     };
   }
   private destroy$ = new Subject<void>();

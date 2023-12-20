@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {cilBrush, cilCheck, cilList, cilShieldAlt, cilX} from '@coreui/icons';
+import {cilBrush, cilCheck, cilList, cilRouter, cilRss, cilShieldAlt, cilX} from '@coreui/icons';
 
 import {
   AvatarModule,
@@ -68,5 +68,5 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
     IconSetService]
 })
 export class DashboardModule {
-  icons = { cilList, cilShieldAlt, cilCheck, cilX, cilBrush};
+  icons = { cilList, cilShieldAlt, cilCheck, cilX, cilBrush, cilRouter, cilRss};
 }

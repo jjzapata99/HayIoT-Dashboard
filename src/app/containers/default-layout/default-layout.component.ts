@@ -14,7 +14,9 @@ import {
   cilPaperPlane, cilPencil,
   cilSearch, cilSpeedometer,
   cilStar,
-  cilX
+  cilX,
+  cilRouter,
+  cilRss
 } from "@coreui/icons";
 
 @Component({
@@ -24,7 +26,7 @@ import {
 })
 export class DefaultLayoutComponent {
   constructor(public iconSet: IconSetService) {
-    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, cilStar,cilFile, cilMenu, cilPencil, cilSpeedometer, ...brandSet };
+    iconSet.icons = { cilListNumbered,cilPaperPlane, cilCheck, cilBrush, cilX ,cilSearch, cilStar,cilFile, cilMenu, cilPencil, cilSpeedometer,  cilRouter, cilRss,...brandSet };
 
   }
   public navItems = navItems;
