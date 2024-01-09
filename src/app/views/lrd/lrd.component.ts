@@ -14,7 +14,9 @@ import {
   cilMenu,
   cilPencil,
   cilSpeedometer,
-  cilFindInPage, cilRouter, cilRss
+  cilFindInPage,
+  cilRouter,
+  cilRss
 } from "@coreui/icons";
 import {DashboardChartsData} from "../dashboard/dashboard-charts-data";
 import {interval, Subject, takeUntil} from "rxjs";
@@ -31,7 +33,9 @@ export class LrdComponent  implements  OnInit, OnDestroy{
   chart: any;
   option: any;
   badSensors : any[]=[];
-  sensors = ['65789e52b5e8c47d6635f837', '6578a00d6801548863072886', '657895323df99ac8ec108c92','65789cc1b5e8c47d6635f140', '6571ffac32f7b71ba5318f57', '6571fcaed6802c0e4eea6a5a', '6571f6df63f2324314ccab35', '6571fdfe78bbe54d089a7f6a','6571f9f478bbe54d089a7ab0', '6570c84b2a193755863ac313']
+  names = [['G1S1', 'G1S2'],['G2S1', 'G2S2'],['G3S1*', 'G3S2'], ['G4S1', 'G4S2'], ['G5S1', 'G5S2'], ['G6S1', 'G6S2'], ['G7S1', '']]
+  senso = [['6570c84b2a193755863ac313', '6571f6df63f2324314ccab35'], ['6571f9f478bbe54d089a7ab0', '6571fcaed6802c0e4eea6a5a'], ['658495712716d78b0d60bcba', '6571ffac32f7b71ba5318f57'] ,['657895323df99ac8ec108c92', '65789cc1b5e8c47d6635f140'], ['65789e52b5e8c47d6635f837','6578a00d6801548863072886'], ['659c8a2456b42d5fab7b9bcb', '659c8a5dd5525e744625a749'], ['659c8a6d56b42d5fab7b9d7a', '']]
+  sensors = ['6570c84b2a193755863ac313', '6571f6df63f2324314ccab35', '6571f9f478bbe54d089a7ab0','6571fcaed6802c0e4eea6a5a', '658495712716d78b0d60bcba', '6571ffac32f7b71ba5318f57', '657895323df99ac8ec108c92', '65789cc1b5e8c47d6635f140','65789e52b5e8c47d6635f837', '6578a00d6801548863072886', '659c8a2456b42d5fab7b9bcb', '659c8a2456b42d5fab7b9bcb', '659c8a5dd5525e744625a749', '659c8a6d56b42d5fab7b9d7a', '']
   echarts: any[] = []
   temperature = 10
   humed = 1
@@ -161,8 +165,8 @@ export class LrdComponent  implements  OnInit, OnDestroy{
           tension: 0.1
         },
         point: {
-          radius: 1,
-          hitRadius: 2,
+          radius: 0,
+          hitRadius: 1,
           hoverRadius: 1,
           hoverBorderWidth: 1
         }
@@ -213,12 +217,6 @@ export class LrdComponent  implements  OnInit, OnDestroy{
     }
 
   }
-  getAllData(){
-    for(let id of this.sensors){
-      console.log(Chart.getChart(id)?.data.datasets[0])
-    }
-
-  }
   fetchData(id: any) {
     let init = ''
     let end = ''
@@ -228,6 +226,8 @@ export class LrdComponent  implements  OnInit, OnDestroy{
     let query = 'getDataWeb'
     let obj = {'id': id, "start": init, "end": end, "tags": tags}
     this.api.putQuery(query, obj).subscribe((response: any) => {
+      console.log(id)
+      console.log(response)
       if (response.length >0) {
         let temp: any[] = []
         let temp3: any[] = []

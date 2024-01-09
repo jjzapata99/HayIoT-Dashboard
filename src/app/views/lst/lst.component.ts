@@ -1,21 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ApiConectionService} from "../../services/api/api-conection.service";
 import {IconSetService} from "@coreui/icons-angular";
-import {
-  brandSet,
-  cilBrush,
-  cilCheck,
-  cilListNumbered,
-  cilPaperPlane,
-  cilSearch,
-  cilStar,
-  cilX,
-  cilFile,
-  cilMenu,
-  cilPencil,
-  cilSpeedometer,
-  cilRouter, cilRss
-} from "@coreui/icons";
+import {brandSet, cilBrush, cilCheck, cilListNumbered, cilPaperPlane, cilSearch, cilStar, cilX,cilFile, cilMenu, cilPencil, cilSpeedometer, cilRouter, cilRss} from "@coreui/icons";
 import {DashboardChartsData} from "../dashboard/dashboard-charts-data";
 import {EChartsOption} from "echarts";
 import * as moment from "moment/moment";
@@ -57,8 +43,8 @@ export class LstComponent implements  OnInit, OnDestroy {
           tension: 0.1
         },
         point: {
-          radius: 1,
-          hitRadius: 2,
+          radius: 0,
+          hitRadius: 1,
           hoverRadius: 1,
           hoverBorderWidth: 1
         }
@@ -76,7 +62,9 @@ export class LstComponent implements  OnInit, OnDestroy {
       cilFile,
       cilMenu,
       cilPencil,
-      cilSpeedometer, cilRouter, cilRss, ...brandSet
+      cilSpeedometer,
+      cilRouter,
+      cilRss, ...brandSet
     };
     for (let i of this.s31s) {
       this.fetchDataS31(i)
